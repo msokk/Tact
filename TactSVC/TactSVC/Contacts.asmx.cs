@@ -20,7 +20,7 @@ namespace TactSVC
         [WebMethod]
         public string HelloWorld()
         {
-            return "Hello World";
+            return "Tere maailm!";
         }
     }
 }
