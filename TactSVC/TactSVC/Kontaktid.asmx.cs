@@ -27,6 +27,8 @@ namespace TactSVC
         [WebMethod]
         public string Logi_Sisse()
         {
+            string kasutajanimi, parool;
+
             return "Tere maailm!";
         }
 
@@ -39,18 +41,21 @@ namespace TactSVC
         [WebMethod]
         public string Lisa_Kontakt()
         {
+            string eesnimi, perenimi;
             return "Tere maailm!";
         }
 
         [WebMethod]
         public string Muuda_Kontakt()
         {
+            string eesnimi, perenimi;
             return "Tere maailm!";
         }
 
         [WebMethod]
         public string Kuva_Kontakt()
         {
+            string eesnimi, perenimi;
             return "Tere maailm!";
         }
 
@@ -63,6 +68,7 @@ namespace TactSVC
         [WebMethod]
         public string Kontaktiraamat()
         {
+            string eesnimi, perenimi;
             return "Tere maailm!";
         }
     }
