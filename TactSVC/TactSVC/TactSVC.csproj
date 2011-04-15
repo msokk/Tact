@@ -50,7 +50,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Contacts.asmx" />
+    <Content Include="Kontaktid.asmx" />
     <Content Include="Login.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -61,10 +61,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contacts.asmx.cs">
-      <DependentUpon>Contacts.asmx</DependentUpon>
+    <Compile Include="Andmebaas\Kasutaja.cs" />
+    <Compile Include="Kontaktid.asmx.cs">
+      <DependentUpon>Kontaktid.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Andmebaas\Andmebaas.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -78,6 +80,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Andmebaas\SQLite.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\Settings.settings">

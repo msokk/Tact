@@ -11,8 +11,12 @@ namespace TactSVC.Andmebaas
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
+
         public string Eesnimi { get; set; }
+
         public string Perenimi { get; set; }
+
+
 
     }
 
