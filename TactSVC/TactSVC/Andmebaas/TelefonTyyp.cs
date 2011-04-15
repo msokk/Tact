@@ -6,14 +6,10 @@ using SQLite;
 
 namespace TactSVC.Andmebaas
 {
-    public class Kasutaja
+    public class TelefonTyyp
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public string Kasutajanimi { get; set; }
-        public string Eesnimi { get; set; }
-        public string Perenimi { get; set; }
-        public string FacebookId { get; set; }
+        public string Tyyp { get; set; }
     }
-
 }
