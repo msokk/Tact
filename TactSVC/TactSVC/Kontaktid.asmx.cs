@@ -25,10 +25,8 @@ namespace TactSVC
         }
 
         [WebMethod]
-        public string Logi_Sisse()
+        public string Logi_Sisse(String kasutajanimi, String parool)
         {
-            string kasutajanimi, parool;
-
             return "Tere maailm!";
         }
 
@@ -39,28 +37,31 @@ namespace TactSVC
         }
 
         [WebMethod]
-        public string Lisa_Kontakt()
+        public string Muuda_Kasutaja()
         {
-            string eesnimi, perenimi;
             return "Tere maailm!";
         }
 
         [WebMethod]
-        public string Muuda_Kontakt()
+        public string Lisa_Kontakt(String eesnimi, String perenimi)
         {
-            string eesnimi, perenimi;
             return "Tere maailm!";
         }
 
         [WebMethod]
-        public string Kuva_Kontakt()
+        public string Muuda_Kontakt(int kontakt_id, String eesnimi, String perenimi)
         {
-            string eesnimi, perenimi;
             return "Tere maailm!";
         }
 
         [WebMethod]
-        public string Kustuta_Kontakt()
+        public string Kuva_Kontakt(int kontakt_id)
+        {
+            return "Tere maailm!";
+        }
+
+        [WebMethod]
+        public string Kustuta_Kontakt(int kontakt_id)
         {
             return "Tere maailm!";
         }
@@ -68,7 +69,6 @@ namespace TactSVC
         [WebMethod]
         public string Kontaktiraamat()
         {
-            string eesnimi, perenimi;
             return "Tere maailm!";
         }
     }
