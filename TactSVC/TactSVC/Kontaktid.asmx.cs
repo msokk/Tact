@@ -19,7 +19,49 @@ namespace TactSVC
     {
 
         [WebMethod]
-        public string HelloWorld()
+        public string Loo_Konto()
+        {
+            return "Tere maailm!";
+        }
+
+        [WebMethod]
+        public string Logi_Sisse()
+        {
+            return "Tere maailm!";
+        }
+
+        [WebMethod]
+        public string Logi_Valja()
+        {
+            return "Tere maailm!";
+        }
+
+        [WebMethod]
+        public string Lisa_Kontakt()
+        {
+            return "Tere maailm!";
+        }
+
+        [WebMethod]
+        public string Muuda_Kontakt()
+        {
+            return "Tere maailm!";
+        }
+
+        [WebMethod]
+        public string Kuva_Kontakt()
+        {
+            return "Tere maailm!";
+        }
+
+        [WebMethod]
+        public string Kustuta_Kontakt()
+        {
+            return "Tere maailm!";
+        }
+
+        [WebMethod]
+        public string Kontaktiraamat()
         {
             return "Tere maailm!";
         }
