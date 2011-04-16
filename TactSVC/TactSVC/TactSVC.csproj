@@ -50,6 +50,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="sqlite3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Kontaktid.asmx" />
     <Content Include="Login.aspx" />
     <Content Include="Web.config" />

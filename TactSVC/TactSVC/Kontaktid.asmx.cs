@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Web.Security;
+using TactSVC.Andmebaas;
 
 namespace TactSVC
 {

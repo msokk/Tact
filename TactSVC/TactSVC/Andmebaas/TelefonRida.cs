@@ -11,6 +11,7 @@ namespace TactSVC.Andmebaas
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int KontaktId { get; set; }
-        public string Email { get; set; }
+        public int TelefonTyypId { get; set; }
+        public string Telefon { get; set; }
     }
 }
