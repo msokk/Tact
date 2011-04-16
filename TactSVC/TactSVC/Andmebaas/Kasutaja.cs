@@ -52,19 +52,20 @@ namespace TactSVC.Andmebaas
             return q.ToArray();
         }
 
-        public void LisaKontakt(Kontakt k, SQLiteConnection c)
+        public int LisaKontakt(Kontakt k, SQLiteConnection c)
         {
             k.KasutajaId = Id;
-            c.Insert(k);
+            return c.Insert(k);
         }
 
-        public void EemaldaKontakt(int id, SQLiteConnection c)
+        public int EemaldaKontakt(int id, SQLiteConnection c)
         {
             Kontakt[] k = this.otsiKontaktid(new Kontakt() { Id = id }, c);
             if (k.Length > 0)
             {
-                c.Delete(k[0]);
+                return c.Delete(k[0]);
             }
+            return 0;
         }
     }
 

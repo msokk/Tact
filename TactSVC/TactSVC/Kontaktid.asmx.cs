@@ -19,14 +19,13 @@ namespace TactSVC
     [WebService(Namespace = "http://kontaktid.sokk.ee/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
+    [System.Web.Script.Services.ScriptService]
     public class Kontaktid : System.Web.Services.WebService
     {
         Andmebaas.Andmebaas ab = new Andmebaas.Andmebaas("andmebaas.db");
 
         [WebMethod]
-        public Staatus Loo_Kasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
+        public Staatus LooKasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
             if (ab.tagastaKasutaja(kasutajanimi)==null)
             {
@@ -80,7 +79,7 @@ namespace TactSVC
         }
 
         [WebMethod (EnableSession = true)]
-        public Staatus Logi_Sisse(String kasutajanimi, String parool)
+        public Staatus LogiSisse(String kasutajanimi, String parool)
         {
             parool = ComputeHash(parool);
             Kasutaja k = ab.tagastaKasutaja(kasutajanimi);
@@ -90,7 +89,6 @@ namespace TactSVC
                 {
 
                     Session["kasutaja"] = k;
-                    //sessioon luua mis sisaldaks kasutaja id-d
                     return new Staatus()
                     {
                         Tyyp = "OK",
@@ -118,26 +116,41 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
-        public string Logi_Valja()
+        public Staatus LogiValja()
         {
-            //sessioon hävitada
-            return "Tere maailm!";
+            Session.Clear();
+            return new Staatus() { 
+                Tyyp = "OK",
+                Sonum = "Välja logitud!"
+            };
         }
 
         [WebMethod(EnableSession = true)]
-        public Staatus Muuda_Kasutaja(String parool, String eesnimi, String perenimi)
+        public Staatus MuudaKasutaja(String parool, String eesnimi, String perenimi)
         {
-            var result = ab.Update(new Kasutaja()
+            var rowsAffected = ab.Update(new Kasutaja()
             {
                 Parool = parool,
                 Eesnimi = eesnimi,
                 Perenimi = perenimi,
             });
-            return new Staatus()
+
+            if (rowsAffected > 0)
             {
-                Tyyp = "OK",
-                Sonum = "Kasutaja muudetud!"
-            };
+                return new Staatus()
+                {
+                    Tyyp = "OK",
+                    Sonum = "Kasutaja muudetud!"
+                };
+            }
+            else
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Muutmine ebaõnnestus!"
+                };
+            }
         }
 
         [WebMethod(EnableSession = true)]
@@ -148,59 +161,108 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
-        public string Muuda_Kontakt(int kontaktId, String eesnimi, String perenimi, String telefonKodu, String telefonToo, String telefonMob,
-            String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
+        public Staatus MuudaKontakt(int kontaktId, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
+            String telefonMob, String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
             String majaNr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
-            Kontakt kontakt = Kontakt.OtsiId(kontaktId, ab);
-            kontakt.Eesnimi = eesnimi;
-            kontakt.Perenimi = perenimi;
-            kontakt.TelefonKodu = telefonKodu;
-            kontakt.TelefonToo = telefonToo;
-            kontakt.TelefonMob = telefonMob;
-            kontakt.EmailKodu = emailKodu;
-            kontakt.EmailToo = emailToo;
-            kontakt.Riik = riik;
-            kontakt.Maakond = maakond;
-            kontakt.Asula = asula;
-            kontakt.Tanav = tanav;
-            kontakt.MajaNr = majaNr;
-            kontakt.WindowsLiveMessenger = wlm;
-            kontakt.Facebook = facebook;
-            kontakt.Orkut = orkut;
-            kontakt.Skype = skype;
-            kontakt.Twitter = twitter;
-            kontakt.Pilt = pilt;
-            ab.Update(kontakt);
-            return "test";
+            if(Session["kasutaja"] == null) {
+                return new Staatus() {
+                    Tyyp = "Viga",
+                    Sonum = "Autentimata"
+                };
+            }
+            Kasutaja k = (Kasutaja)Session["kasutaja"];
+
+            Kontakt kontakt = k.otsiKontaktid(new Kontakt() {
+                Id = kontaktId
+            }, ab)[0];
+
+            kontakt.KasutajaId = k.Id;
+            if(eesnimi != null) kontakt.Eesnimi = eesnimi;
+            if(perenimi != null) kontakt.Perenimi = perenimi;
+            if(telefonKodu != null) kontakt.TelefonKodu = telefonKodu;
+            if(telefonToo != null) kontakt.TelefonToo = telefonToo;
+            if(telefonMob != null) kontakt.TelefonMob = telefonMob;
+            if(emailKodu != null) kontakt.EmailKodu = emailKodu;
+            if(emailToo != null) kontakt.EmailToo = emailToo;
+            if(riik != null) kontakt.Riik = riik;
+            if(maakond != null) kontakt.Maakond = maakond;
+            if(asula != null) kontakt.Asula = asula;
+            if(tanav != null) kontakt.Tanav = tanav;
+            if(majaNr != null) kontakt.MajaNr = majaNr;
+            if(wlm != null) kontakt.WindowsLiveMessenger = wlm;
+            if(facebook != null) kontakt.Facebook = facebook;
+            if(orkut != null) kontakt.Orkut = orkut;
+            if(skype != null) kontakt.Skype = skype;
+            if(twitter != null) kontakt.Twitter = twitter;
+            if(pilt != null) kontakt.Pilt = pilt;
+            int affected = ab.Update(kontakt);
+            if (affected > 0)
+            {
+                return new Staatus()
+                {
+                    Tyyp = "OK",
+                    Sonum = "Kontakt muudetud!"
+                };
+            }
+            else
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Süsteemi viga!"
+                };
+            }
         }
 
         [WebMethod(EnableSession = true)]
         public Kontakt KuvaKontakt(int kontakt_id)
         {
-            Kasutaja kasutaja = new Kasutaja();
-            Kontakt[] kontaktid = kasutaja.otsiKontaktid(new Kontakt { Id = kontakt_id }, ab);
+            if (Session["kasutaja"] == null)
+            {
+                return null;
+            }
+
+            Kasutaja k = (Kasutaja)Session["kasutaja"];
+
+            Kontakt[] kontaktid = k.otsiKontaktid(new Kontakt { Id = kontakt_id }, ab);
             return kontaktid[0];
         }
 
         [WebMethod(EnableSession = true)]
         public Staatus EemaldaKontakt(int kontakt_id)
         {
-            Kasutaja kasutaja = new Kasutaja();
-            kasutaja.EemaldaKontakt(kontakt_id, ab);
-            Staatus staatus = new Staatus();
-            staatus.Tyyp = "OK";
-            staatus.Sonum = "Kustutamine õnnestus!";
-            return staatus;
+            if (Session["kasutaja"] == null)
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Autentimata"
+                };
+            }
+
+            Kasutaja k = (Kasutaja)Session["kasutaja"];
+
+            int rowsAffected = k.EemaldaKontakt(kontakt_id, ab);
+            if (rowsAffected > 0)
+            {
+                return new Staatus()
+                {
+                    Tyyp = "OK",
+                    Sonum = "Kustutamine õnnestus!"
+                };
+            }
+            else
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Kustutamine ebaõnnestus!"
+                };
+            }
         }
 
-        [WebMethod(EnableSession = true)]
-        public string Kontaktiraamat()
-        {
-            // ??
-            return "Tere maailm!";
-        }
-
+        //Helper
         public string ComputeHash(String input)
         {
             SHA256Managed sha256 = new SHA256Managed();
