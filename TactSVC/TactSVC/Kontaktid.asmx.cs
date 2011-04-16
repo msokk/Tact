@@ -27,7 +27,7 @@ namespace TactSVC
         [WebMethod]
         public Staatus LooKasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
-            if (ab.tagastaKasutaja(kasutajanimi)==null)
+            if (ab.tagastaKasutaja(kasutajanimi) == null)
             {
                 var result = ab.Insert(new Kasutaja()
                 {
@@ -169,7 +169,7 @@ namespace TactSVC
 
             Kasutaja k = (Kasutaja)Session["Kasutaja"];
 
-            k.LisaKontakt(new Kontakt()
+            int rowsAffected = k.LisaKontakt(new Kontakt()
             {
                 Eesnimi = eesnimi,
                 Perenimi = perenimi,
@@ -191,11 +191,22 @@ namespace TactSVC
                 Pilt = pilt
             }, ab);
 
-            return new Staatus()
+            if (rowsAffected > 0)
             {
-                Tyyp = "OK",
-                Sonum = "Kontakt lisatud!"
-            };
+                return new Staatus()
+                {
+                    Tyyp = "OK",
+                    Sonum = "Kontakt lisatud!"
+                };
+            }
+            else
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Lisamine ebaõnnestus!"
+                };
+            }
         }
 
         [WebMethod(EnableSession = true)]
@@ -254,8 +265,11 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
-        public Kontakt KuvaKontakt(int kontakt_id)
+        public Kontakt[] KuvaKontakt(string kontakt_id)
         {
+            int id = 0;
+            Int32.TryParse(kontakt_id, out id);
+
             if (Session["kasutaja"] == null)
             {
                 return null;
@@ -263,8 +277,10 @@ namespace TactSVC
 
             Kasutaja k = (Kasutaja)Session["kasutaja"];
 
-            Kontakt[] kontaktid = k.otsiKontaktid(new Kontakt { Id = kontakt_id }, ab);
-            return kontaktid[0];
+            Kontakt[] kontaktid = k.otsiKontaktid(new Kontakt {
+                    Id = id
+            }, ab);
+            return kontaktid;
         }
 
         [WebMethod(EnableSession = true)]

@@ -33,7 +33,7 @@ namespace TactSVC.Andmebaas
                     (otsing.Perenimi != null) ? k.Perenimi.Contains(otsing.Perenimi) : true &&
                     (otsing.Asula != null) ? k.Asula.Contains(otsing.Asula) : true &&
                     (otsing.Facebook != null) ? k.Facebook.Contains(otsing.Facebook) : true &&
-                    (otsing.Id != null) ? k.Id == otsing.Id : true &&
+                    (otsing.Id != 0) ? k.Id == otsing.Id : true &&
                     (otsing.Maakond != null) ? k.Maakond.Contains(otsing.Maakond) : true &&
                     (otsing.MajaNr != null) ? k.MajaNr.Contains(otsing.MajaNr) : true &&
                     (otsing.Orkut != null) ? k.Orkut.Contains(otsing.Orkut) : true &&
