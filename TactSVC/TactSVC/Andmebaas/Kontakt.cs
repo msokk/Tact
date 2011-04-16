@@ -32,5 +32,13 @@ namespace TactSVC.Andmebaas
         public string TelefonKodu { get; set; }
         public string TelefonToo { get; set; }
         public string TelefonMob { get; set; }
+
+        public static Kontakt OtsiId(int id, SQLiteConnection c)
+        {
+            var q = from k in c.Table<Kontakt>()
+                    where k.Id == id
+                    select k;
+            return q.ToArray()[0];
+        }
     }
 }
