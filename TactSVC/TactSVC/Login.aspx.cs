@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace TactSVC
 {
@@ -14,25 +16,27 @@ namespace TactSVC
         {
             if ((Session["Logitud"] != null) && (Convert.ToBoolean(Session["Logitud"]) == true))
             {
-                // If User is Authenticated then moved to a main page
-                if (User.Identity.IsAuthenticated)
-                {
-                    Response.Redirect("test.aspx");
-                    //TextBox3.Text = "autenditud";
-                }
-                else
-                {
-                    TextBox3.Text = "pole autenditud";
-                }
+                Response.Redirect("test.aspx");
             }
         }
 
         protected void Logi_sisse(object sender, EventArgs e)
         {
             //kasutaja autentimine
-            Session["Logitud"] = true;
+            String kasutajanimi = kasutajanimi_input.Text;
+            String parool = ComputeHash(parool_input.Text);
+            
             Session["Kasutaja"] = "kasutaja_objekt_siia";
-            Response.Redirect("test.aspx");
+            
         }
+
+        public string ComputeHash(String input)
+        {
+            SHA256Managed sha256 = new SHA256Managed();
+            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            Byte[] hashedBytes = sha256.ComputeHash(inputBytes);
+            return BitConverter.ToString(hashedBytes);
+        }
+
     }
 }

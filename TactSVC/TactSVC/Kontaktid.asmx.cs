@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using TactSVC.Andmebaas;
 
 namespace TactSVC
 {
@@ -16,11 +17,19 @@ namespace TactSVC
     // [System.Web.Script.Services.ScriptService]
     public class Kontaktid : System.Web.Services.WebService
     {
-
+        Andmebaas.Andmebaas ab = new Andmebaas.Andmebaas("andmebaas.db");
         [WebMethod]
-        public string Loo_Kasutaja(String kasutajanimi, String parool)
+        public string Loo_Kasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
-            return "Tere maailm!";
+            ab.Insert(new Kasutaja() { 
+                Kasutajanimi = kasutajanimi,
+                Parool = parool,
+                Eesnimi = eesnimi,
+                Perenimi = perenimi,
+                FacebookId = facebookId
+            });
+            String staatus = "onnestus";
+            return staatus;
         }
 
         [WebMethod]

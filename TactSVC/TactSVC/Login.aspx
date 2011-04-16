@@ -11,11 +11,9 @@
     <div>
 
 
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-        <asp:Button ID="Button1" runat="server" onclick="Logi_sisse" Text="Button" />
-        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-
+        <asp:TextBox ID="kasutajanimi_input" runat="server"></asp:TextBox>
+        <asp:TextBox ID="parool_input" runat="server"></asp:TextBox>
+        <asp:Button ID="logi_sisse_nupp" runat="server" onclick="Logi_sisse" Text="Button" />
 
     </div>
     </form>
