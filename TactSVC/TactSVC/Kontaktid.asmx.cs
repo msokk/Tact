@@ -28,12 +28,12 @@ namespace TactSVC
         [WebMethod]
         public Staatus Loo_Kasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
-            if (ab.tagastaKasutaja(kasutajanimi)==null)
+            if (ab.tagastaKasutaja(kasutajanimi) == null)
             {
                 var result = ab.Insert(new Kasutaja()
                 {
                     Kasutajanimi = kasutajanimi,
-                    Parool = parool,
+                    Parool = ComputeHash(parool),
                     Eesnimi = eesnimi,
                     Perenimi = perenimi,
                     FacebookId = facebookId
@@ -88,13 +88,11 @@ namespace TactSVC
             if(k != null) {
                 if (k.Parool == parool)
                 {
-
                     Session["kasutaja"] = k;
-                    //sessioon luua mis sisaldaks kasutaja id-d
                     return new Staatus()
                     {
                         Tyyp = "OK",
-                        Sonum = Session["kasutaja"].ToString()
+                        Sonum = "Sisse logitud!"
                     };
                 }
                 else
