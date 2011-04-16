@@ -128,12 +128,21 @@ namespace TactSVC
         [WebMethod(EnableSession = true)]
         public Staatus MuudaKasutaja(String parool, String eesnimi, String perenimi)
         {
-            var rowsAffected = ab.Update(new Kasutaja()
+            if (Session["kasutaja"] == null)
             {
-                Parool = parool,
-                Eesnimi = eesnimi,
-                Perenimi = perenimi,
-            });
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Autentimata"
+                };
+            }
+
+            Kasutaja k = (Kasutaja)Session["Kasutaja"];
+            if (parool != "") k.Parool = ComputeHash(parool);
+            if (eesnimi != "") k.Eesnimi = eesnimi;
+            if (perenimi != "") k.Perenimi = perenimi;
+
+            var rowsAffected = ab.Update(k);
 
             if (rowsAffected > 0)
             {
