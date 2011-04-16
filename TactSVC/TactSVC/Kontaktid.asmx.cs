@@ -141,10 +141,37 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
-        public string Lisa_Kontakt(String eesnimi, String perenimi, String[] telefon, String[] email, String Riik, String Maakond, String asula, String tanav,
+        public Staatus Lisa_Kontakt(String eesnimi, String perenimi, String telefonKodu, String telefonToo, String telefonMob,
+            String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
             String maja_nr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
-            return "Tere maailm!";
+            var result = ab.Insert(new Kontakt()
+            {
+                Eesnimi = eesnimi,
+                Perenimi = perenimi,
+                TelefonKodu = telefonKodu,
+                TelefonToo = telefonToo,
+                TelefonMob = telefonMob,
+                EmailKodu = emailKodu,
+                EmailToo = emailToo,
+                Riik = riik,
+                Maakond = maakond,
+                Asula = asula,
+                Tanav = tanav,
+                MajaNr = maja_nr,
+                WindowsLiveMessenger = wlm,
+                Facebook = facebook,
+                Orkut = orkut,
+                Skype = skype,
+                Twitter = twitter,
+                Pilt = pilt
+
+            });
+            return new Staatus()
+            {
+                Tyyp = "OK",
+                Sonum = "Kontakt lisatud!"
+            };
         }
 
         [WebMethod(EnableSession = true)]
