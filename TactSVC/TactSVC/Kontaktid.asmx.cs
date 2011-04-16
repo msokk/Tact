@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using TactSVC.Andmebaas;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace TactSVC
 {
@@ -21,15 +23,38 @@ namespace TactSVC
         [WebMethod]
         public string Loo_Kasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
-            ab.Insert(new Kasutaja() { 
+            String staatus;
+
+            var result = ab.Insert(new Kasutaja() { 
                 Kasutajanimi = kasutajanimi,
                 Parool = parool,
                 Eesnimi = eesnimi,
                 Perenimi = perenimi,
                 FacebookId = facebookId
             });
-            String staatus = "onnestus";
+
+            if (IsNumeric(result))
+            {
+                staatus = "onnestus";
+            }
+            else
+            {
+                staatus = "viga";
+            }
             return staatus;
+        }
+
+        public static bool IsNumeric(object value)
+        {
+            try
+            {
+                int i = Convert.ToInt32(value.ToString());
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
 
         [WebMethod]
