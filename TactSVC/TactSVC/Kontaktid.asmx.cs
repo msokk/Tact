@@ -33,7 +33,7 @@ namespace TactSVC
                 var result = ab.Insert(new Kasutaja()
                 {
                     Kasutajanimi = kasutajanimi,
-                    Parool = parool,
+                    Parool = ComputeHash(parool),
                     Eesnimi = eesnimi,
                     Perenimi = perenimi,
                     FacebookId = facebookId
@@ -94,7 +94,7 @@ namespace TactSVC
                     return new Staatus()
                     {
                         Tyyp = "OK",
-                        Sonum = Session["kasutaja"].ToString()
+                        Sonum = "Sisse logitud!"
                     };
                 }
                 else
