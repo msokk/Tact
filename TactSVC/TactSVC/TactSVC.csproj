@@ -73,7 +73,6 @@
       <DependentUpon>Kontaktid.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Konteiner.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -83,6 +82,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Andmebaas\SQLite.cs" />
+    <Compile Include="Staatus.cs" />
     <Compile Include="test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

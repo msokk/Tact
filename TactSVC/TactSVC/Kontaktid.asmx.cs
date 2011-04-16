@@ -12,7 +12,7 @@ namespace TactSVC
     /// <summary>
     /// Summary description for Kontaktid
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://kontaktid.sokk.ee/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -20,11 +20,10 @@ namespace TactSVC
     public class Kontaktid : System.Web.Services.WebService
     {
         Andmebaas.Andmebaas ab = new Andmebaas.Andmebaas("andmebaas.db");
-        [WebMethod]
-        public string Loo_Kasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
-        {
-            String staatus;
 
+        [WebMethod]
+        public Staatus Loo_Kasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
+        {
             var result = ab.Insert(new Kasutaja() { 
                 Kasutajanimi = kasutajanimi,
                 Parool = parool,
@@ -35,13 +34,19 @@ namespace TactSVC
 
             if (IsNumeric(result))
             {
-                staatus = "onnestus";
+                return new Staatus() { 
+                    Tyyp = "OK",
+                    Sonum = "Kasutaja lisatud!" 
+                };
             }
             else
             {
-                staatus = "viga";
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Süsteemi viga!"
+                };
             }
-            return staatus;
         }
 
         public static bool IsNumeric(object value)
