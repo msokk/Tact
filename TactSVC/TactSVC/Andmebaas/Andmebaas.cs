@@ -15,10 +15,16 @@ namespace TactSVC.Andmebaas
         {
             CreateTable<Kasutaja>();
             CreateTable<Kontakt>();
-            CreateTable<TelefonTyyp>();
-            CreateTable<TelefonRida>();
-            CreateTable<EmailTyyp>();
-            CreateTable<EmailRida>();
+        }
+
+        public IEnumerable<Kasutaja> tagastaKasutaja(string kasutajanimi)
+        {
+           return this.Table<Kasutaja> ().Where(k => k.Kasutajanimi == kasutajanimi);
+        }
+
+        public IEnumerable<Kasutaja> tagastaKasutajaFB(string facebookId)
+        {
+            return this.Table<Kasutaja>().Where(k => k.FacebookId == facebookId);
         }
     }
 }

@@ -64,12 +64,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Andmebaas\EmailRida.cs" />
-    <Compile Include="Andmebaas\EmailTyyp.cs" />
     <Compile Include="Andmebaas\Kasutaja.cs" />
     <Compile Include="Andmebaas\Kontakt.cs" />
-    <Compile Include="Andmebaas\TelefonRida.cs" />
-    <Compile Include="Andmebaas\TelefonTyyp.cs" />
     <Compile Include="Andmebaas\Andmebaas.cs" />
     <Compile Include="Kontaktid.asmx.cs">
       <DependentUpon>Kontaktid.asmx</DependentUpon>

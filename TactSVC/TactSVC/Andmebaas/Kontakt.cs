@@ -25,5 +25,12 @@ namespace TactSVC.Andmebaas
         public string Skype { get; set; }
         public string Twitter { get; set; }
         public string Pilt { get; set; }
+
+        public string EmailKodu { get; set; }
+        public string EmailToo { get; set; }
+
+        public string TelefonKodu { get; set; }
+        public string TelefonToo { get; set; }
+        public string TelefonMob { get; set; }
     }
 }
