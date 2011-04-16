@@ -24,27 +24,40 @@ namespace TactSVC
         [WebMethod]
         public Staatus Loo_Kasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
-            var result = ab.Insert(new Kasutaja() { 
-                Kasutajanimi = kasutajanimi,
-                Parool = parool,
-                Eesnimi = eesnimi,
-                Perenimi = perenimi,
-                FacebookId = facebookId
-            });
-
-            if (IsNumeric(result))
+            if (ab.tagastaKasutaja(kasutajanimi)==null)
             {
-                return new Staatus() { 
-                    Tyyp = "OK",
-                    Sonum = "Kasutaja lisatud!" 
-                };
+                var result = ab.Insert(new Kasutaja()
+                {
+                    Kasutajanimi = kasutajanimi,
+                    Parool = parool,
+                    Eesnimi = eesnimi,
+                    Perenimi = perenimi,
+                    FacebookId = facebookId
+                });
+
+                if (IsNumeric(result))
+                {
+                    return new Staatus()
+                    {
+                        Tyyp = "OK",
+                        Sonum = "Kasutaja lisatud!"
+                    };
+                }
+                else
+                {
+                    return new Staatus()
+                    {
+                        Tyyp = "Viga",
+                        Sonum = "Süsteemi viga!"
+                    };
+                }
             }
             else
             {
                 return new Staatus()
                 {
                     Tyyp = "Viga",
-                    Sonum = "Süsteemi viga!"
+                    Sonum = "Kasutajanimi on juba kasutusel!"
                 };
             }
         }
