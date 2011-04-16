@@ -141,11 +141,22 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
-        public Staatus Lisa_Kontakt(String eesnimi, String perenimi, String telefonKodu, String telefonToo, String telefonMob,
+        public Staatus LisaKontakt(String eesnimi, String perenimi, String telefonKodu, String telefonToo, String telefonMob,
             String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
             String maja_nr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
-            var result = ab.Insert(new Kontakt()
+            if (Session["kasutaja"] == null)
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Autentimata"
+                };
+            }
+
+            Kasutaja k = (Kasutaja)Session["Kasutaja"];
+
+            k.LisaKontakt(new Kontakt()
             {
                 Eesnimi = eesnimi,
                 Perenimi = perenimi,
@@ -165,8 +176,8 @@ namespace TactSVC
                 Skype = skype,
                 Twitter = twitter,
                 Pilt = pilt
+            }, ab);
 
-            });
             return new Staatus()
             {
                 Tyyp = "OK",
