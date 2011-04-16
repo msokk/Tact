@@ -17,14 +17,28 @@ namespace TactSVC.Andmebaas
             CreateTable<Kontakt>();
         }
 
-        public IEnumerable<Kasutaja> tagastaKasutaja(string kasutajanimi)
+        public Kasutaja tagastaKasutaja(string kasutajanimi)
         {
-           return this.Table<Kasutaja> ().Where(k => k.Kasutajanimi == kasutajanimi);
+            try
+            {
+                return this.Table<Kasutaja>().Where(k => k.Kasutajanimi == kasutajanimi).Single();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
-        public IEnumerable<Kasutaja> tagastaKasutajaFB(string facebookId)
+        public Kasutaja tagastaKasutajaFB(string facebookId)
         {
-            return this.Table<Kasutaja>().Where(k => k.FacebookId == facebookId);
+            try
+            {
+            return this.Table<Kasutaja>().Where(k => k.FacebookId == facebookId).Single();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

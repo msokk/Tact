@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Linq;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using System.Web.Security;
+using System.Security.Cryptography;
 using TactSVC.Andmebaas;
-using System.Xml;
-using System.Xml.Linq;
+using System.Text;
+
 
 namespace TactSVC
 {
@@ -75,11 +79,42 @@ namespace TactSVC
             }
         }
 
-        [WebMethod]
-        public string Logi_Sisse(String kasutajanimi, String parool)
+        [WebMethod (EnableSession = true)]
+        public Staatus Logi_Sisse(String kasutajanimi, String parool)
         {
-            //sessioon luua mis sisaldaks kasutaja id-d
-            return "Tere maailm!";
+            parool = ComputeHash(parool);
+            Kasutaja k = ab.tagastaKasutaja(kasutajanimi);
+            
+            if(k != null) {
+                if (k.Parool == parool)
+                {
+
+                    Session["kasutaja"] = k;
+                    //sessioon luua mis sisaldaks kasutaja id-d
+                    return new Staatus()
+                    {
+                        Tyyp = "OK",
+                        Sonum = Session["kasutaja"].ToString()
+                    };
+                }
+                else
+                {
+                    return new Staatus()
+                    {
+                        Tyyp = "Viga",
+                        Sonum = "Vale parool!"
+                    };
+                }
+            } 
+            else
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Kasutajat ei eksisteeri!"
+                };
+            }
+
         }
 
         [WebMethod]
@@ -128,40 +163,12 @@ namespace TactSVC
             return "Tere maailm!";
         }
 
-        [WebMethod]
-        public string Lisa_Email_Tyyp(String tyyp)
+        public string ComputeHash(String input)
         {
-            return "Tere maailm!";
-        }
-
-        [WebMethod]
-        public string Lisa_Telefon_Tyyp(String tyyp)
-        {
-            return "Tere maailm!";
-        }
-
-        [WebMethod]
-        public string Muuda_Email_Tyyp(int email_tyyp_id, String tyyp)
-        {
-            return "Tere maailm!";
-        }
-
-        [WebMethod]
-        public string Muuda_Telefon_Tyyp(int telefon_tyyp_id, String tyyp)
-        {
-            return "Tere maailm!";
-        }
-
-        [WebMethod]
-        public string Kustuta_Email_Tyyp(int email_tyyp_id)
-        {
-            return "Tere maailm!";
-        }
-
-        [WebMethod]
-        public string Kustuta_Telefon_Tyyp(int telefon_tyyp_id)
-        {
-            return "Tere maailm!";
+            SHA256Managed sha256 = new SHA256Managed();
+            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            Byte[] hashedBytes = sha256.ComputeHash(inputBytes);
+            return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
         }
 
     }
