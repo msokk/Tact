@@ -65,6 +65,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Andmebaas\API.cs" />
     <Compile Include="Andmebaas\Kasutaja.cs" />
     <Compile Include="Andmebaas\Kontakt.cs" />
     <Compile Include="Andmebaas\Andmebaas.cs" />
