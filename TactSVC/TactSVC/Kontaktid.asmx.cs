@@ -28,12 +28,12 @@ namespace TactSVC
         [WebMethod]
         public Staatus Loo_Kasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
-            if (ab.tagastaKasutaja(kasutajanimi) == null)
+            if (ab.tagastaKasutaja(kasutajanimi)==null)
             {
                 var result = ab.Insert(new Kasutaja()
                 {
                     Kasutajanimi = kasutajanimi,
-                    Parool = ComputeHash(parool),
+                    Parool = parool,
                     Eesnimi = eesnimi,
                     Perenimi = perenimi,
                     FacebookId = facebookId
@@ -88,11 +88,13 @@ namespace TactSVC
             if(k != null) {
                 if (k.Parool == parool)
                 {
+
                     Session["kasutaja"] = k;
+                    //sessioon luua mis sisaldaks kasutaja id-d
                     return new Staatus()
                     {
                         Tyyp = "OK",
-                        Sonum = "Sisse logitud!"
+                        Sonum = Session["kasutaja"].ToString()
                     };
                 }
                 else
@@ -115,46 +117,56 @@ namespace TactSVC
 
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public string Logi_Valja()
         {
             //sessioon hävitada
             return "Tere maailm!";
         }
 
-        [WebMethod]
-        public string Muuda_Kasutaja(String parool, String eesnimi, String perenimi)
+        [WebMethod(EnableSession = true)]
+        public Staatus Muuda_Kasutaja(String parool, String eesnimi, String perenimi)
         {
-            return "Tere maailm!";
+            var result = ab.Update(new Kasutaja()
+            {
+                Parool = parool,
+                Eesnimi = eesnimi,
+                Perenimi = perenimi,
+            });
+            return new Staatus()
+            {
+                Tyyp = "OK",
+                Sonum = "Kasutaja muudetud!"
+            };
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public string Lisa_Kontakt(String eesnimi, String perenimi, String[] telefon, String[] email, String Riik, String Maakond, String asula, String tanav,
             String maja_nr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
             return "Tere maailm!";
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public string Muuda_Kontakt(int kontakt_id, String eesnimi, String[] telefon, String[] email, String perenimi, String Riik, String Maakond, String asula, String tanav,
             String maja_nr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
             return "Tere maailm!";
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public string Kuva_Kontakt(int kontakt_id)
         {
             return "Tere maailm!";
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public string Kustuta_Kontakt(int kontakt_id)
         {
             return "Tere maailm!";
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public string Kontaktiraamat()
         {
             // ??
