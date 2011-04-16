@@ -148,22 +148,50 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
-        public string Muuda_Kontakt(int kontakt_id, String eesnimi, String[] telefon, String[] email, String perenimi, String Riik, String Maakond, String asula, String tanav,
-            String maja_nr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
+        public string Muuda_Kontakt(int kontaktId, String eesnimi, String perenimi, String telefonKodu, String telefonToo, String telefonMob,
+            String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
+            String majaNr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
-            return "Tere maailm!";
+            Kontakt kontakt = Kontakt.OtsiId(kontaktId, ab);
+            kontakt.Eesnimi = eesnimi;
+            kontakt.Perenimi = perenimi;
+            kontakt.TelefonKodu = telefonKodu;
+            kontakt.TelefonToo = telefonToo;
+            kontakt.TelefonMob = telefonMob;
+            kontakt.EmailKodu = emailKodu;
+            kontakt.EmailToo = emailToo;
+            kontakt.Riik = riik;
+            kontakt.Maakond = maakond;
+            kontakt.Asula = asula;
+            kontakt.Tanav = tanav;
+            kontakt.MajaNr = majaNr;
+            kontakt.WindowsLiveMessenger = wlm;
+            kontakt.Facebook = facebook;
+            kontakt.Orkut = orkut;
+            kontakt.Skype = skype;
+            kontakt.Twitter = twitter;
+            kontakt.Pilt = pilt;
+            ab.Update(kontakt);
+            return "test";
         }
 
         [WebMethod(EnableSession = true)]
-        public string Kuva_Kontakt(int kontakt_id)
+        public Kontakt KuvaKontakt(int kontakt_id)
         {
-            return "Tere maailm!";
+            Kasutaja kasutaja = new Kasutaja();
+            Kontakt[] kontaktid = kasutaja.otsiKontaktid(new Kontakt { Id = kontakt_id }, ab);
+            return kontaktid[0];
         }
 
         [WebMethod(EnableSession = true)]
-        public string Kustuta_Kontakt(int kontakt_id)
+        public Staatus EemaldaKontakt(int kontakt_id)
         {
-            return "Tere maailm!";
+            Kasutaja kasutaja = new Kasutaja();
+            kasutaja.EemaldaKontakt(kontakt_id, ab);
+            Staatus staatus = new Staatus();
+            staatus.Tyyp = "OK";
+            staatus.Sonum = "Kustutamine õnnestus!";
+            return staatus;
         }
 
         [WebMethod(EnableSession = true)]
