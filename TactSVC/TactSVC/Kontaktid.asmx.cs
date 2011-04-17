@@ -328,7 +328,7 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
-        public Kontakt[] KuvaKontakt(string kontakt_id, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
+        public Kontakt[] KuvaKontakt(String kontakt_id, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
             String telefonMob, String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
             String majaNr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {

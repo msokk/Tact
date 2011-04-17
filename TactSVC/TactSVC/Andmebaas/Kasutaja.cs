@@ -19,65 +19,75 @@ namespace TactSVC.Andmebaas
 
        public Kontakt[] otsiKontaktid(Kontakt otsing, SQLiteConnection c)
         {
-            var q = from k in c.Table<Kontakt>()
-                    where k.KasutajaId == Id
-                    select k;
+            string query = "SELECT * FROM Kontakt WHERE ";
 
             if (otsing.Id != 0)
-                q = q.Where(k => k.Id == otsing.Id);
+            {
+                query += "Id == " + otsing.Id;
+                return c.Query<Kontakt>(query, string.Empty).ToArray();
+            }
 
             if (otsing.Eesnimi != null)
-                q = q.Where(k => SqlMethods.Like(k.Eesnimi, otsing.Eesnimi));
+                query += "Eesnimi LIKE '%" + otsing.Eesnimi + "%' AND ";
 
             if(otsing.Perenimi != null)
-                q = q.Where(k => k.Perenimi.Contains(otsing.Perenimi));
+                query += "Perenimi LIKE '%" + otsing.Perenimi + "%' AND ";
 
-            if(otsing.Asula != null) 
-                q = q.Where(k => k.Asula.Contains(otsing.Asula));
+            if(otsing.Asula != null)
+                query += "Asula LIKE '%" + otsing.Asula + "%' AND ";
 
             if(otsing.Facebook != null)
-                q = q.Where(k => k.Facebook.Contains(otsing.Facebook));
+                query += "Facebook LIKE '%" + otsing.Facebook + "%' AND ";
 
             if(otsing.Maakond != null)
-                q = q.Where(k => k.Maakond.Contains(otsing.Maakond));
+                query += "Maakond LIKE '%" + otsing.Maakond + "%' AND ";
 
             if(otsing.MajaNr != null)
-                q = q.Where(k => k.MajaNr.Contains(otsing.MajaNr));
+                query += "MajaNr LIKE '%" + otsing.MajaNr + "%' AND ";
 
             if(otsing.Orkut != null)
-                q = q.Where(k => k.Orkut.Contains(otsing.Orkut));
+                query += "Orkut LIKE '%" + otsing.Orkut + "%' AND ";
 
             if(otsing.Riik != null)
-                q = q.Where(k => k.Riik.Contains(otsing.Riik));
+                query += "Riik LIKE '%" + otsing.Riik + "%' AND ";
 
             if(otsing.Skype != null)
-                q = q.Where(k => k.Skype.Contains(otsing.Skype));
+                query += "Skype LIKE '%" + otsing.Skype + "%' AND ";
 
             if(otsing.Tanav != null)
-                q = q.Where(k => k.Tanav.Contains(otsing.Tanav));
+                query += "Tanav LIKE '%" + otsing.Tanav + "%' AND ";
 
             if(otsing.Twitter != null)
-                q = q.Where(k => k.Twitter.Contains(otsing.Twitter));
+                query += "Twitter LIKE '%" + otsing.Twitter + "%' AND ";
 
             if(otsing.WindowsLiveMessenger != null)
-                q = q.Where(k => k.WindowsLiveMessenger.Contains(otsing.WindowsLiveMessenger));
+                query += "WindowsLiveMessenger LIKE '%" + otsing.WindowsLiveMessenger + "%' AND ";
 
             if(otsing.EmailKodu != null)
-                q = q.Where(k => k.EmailKodu.Contains(otsing.EmailKodu));
+                query += "EmailKodu LIKE '%" + otsing.EmailKodu + "%' AND ";
 
             if(otsing.EmailToo != null)
-                q = q.Where(k => k.EmailToo.Contains(otsing.EmailToo));
+                query += "EmailToo LIKE '%" + otsing.EmailToo + "%' AND ";
 
             if(otsing.TelefonKodu != null)
-                q = q.Where(k => k.TelefonKodu.Contains(otsing.TelefonKodu));
+                query += "TelefonKodu LIKE '%" + otsing.TelefonKodu + "%' AND ";
 
             if(otsing.TelefonMob != null)
-                q = q.Where(k => k.TelefonMob.Contains(otsing.TelefonMob));
+                query += "TelefonMob LIKE '%" + otsing.TelefonMob + "%' AND ";
 
             if(otsing.TelefonToo != null)
-                q = q.Where(k => k.TelefonToo.Contains(otsing.TelefonToo));
+                query += "TelefonToo LIKE '%" + otsing.TelefonToo + "%' AND ";
 
-            return q.ToArray();
+            if (query.Substring(query.Length - 5) == " AND ")
+            {
+                query = query.Substring(0, query.Length - 5);
+            }
+            else if (query.Substring(query.Length - 7) == " WHERE ")
+            {
+                query = query.Substring(0, query.Length - 7);
+            }
+
+            return c.Query<Kontakt>(query, string.Empty).ToArray();
         }
 
         public int LisaKontakt(Kontakt k, SQLiteConnection c)
