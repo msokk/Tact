@@ -51,8 +51,7 @@ namespace TactSVC
                 {
                     error.Add("parool");
                 }
-
-                string viga = error.ToString();
+                string viga = String.Join(",", error.ToArray());
                 if (viga == "")
                 {
                     var result = ab.Insert(new Kasutaja()
@@ -85,7 +84,7 @@ namespace TactSVC
                     return new Staatus()
                     {
                         Tyyp = "Viga",
-                        Sonum = "Palun täitke järgmised väljad: " + error
+                        Sonum = "Palun täitke järgmised väljad: " + viga
                     };
                 }
             }
