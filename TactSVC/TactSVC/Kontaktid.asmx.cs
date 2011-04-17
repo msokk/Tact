@@ -112,40 +112,61 @@ namespace TactSVC
         }
 
         [WebMethod (EnableSession = true)]
-        public Staatus LogiSisse(String kasutajanimi, String parool)
+        public Staatus LogiSisse(String kasutajanimi, String parool, String voti)
         {
             parool = ComputeHash(parool);
             Kasutaja k = ab.tagastaKasutaja(kasutajanimi);
-            
-            if(k != null) {
-                if (k.Parool == parool)
-                {
+            string domeen = API.votaDomeen(voti, ab);
 
-                    Session["kasutaja"] = k;
-                    return new Staatus()
+            if (domeen == null)
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Vigane võti!"
+                };
+            }
+
+            if (domeen == HttpContext.Current.Request.ServerVariables["HTTP_HOST"].Split(':')[0])
+            {
+                if (k != null)
+                {
+                    if (k.Parool == parool)
                     {
-                        Tyyp = "OK",
-                        Sonum = "Sisse logitud!"
-                    };
+
+                        Session["kasutaja"] = k;
+                        return new Staatus()
+                        {
+                            Tyyp = "OK",
+                            Sonum = "Sisse logitud!"
+                        };
+                    }
+                    else
+                    {
+                        return new Staatus()
+                        {
+                            Tyyp = "Viga",
+                            Sonum = "Vale parool!"
+                        };
+                    }
                 }
                 else
                 {
                     return new Staatus()
                     {
                         Tyyp = "Viga",
-                        Sonum = "Vale parool!"
+                        Sonum = "Kasutajat ei eksisteeri!"
                     };
                 }
-            } 
+            }
             else
             {
                 return new Staatus()
                 {
                     Tyyp = "Viga",
-                    Sonum = "Kasutajat ei eksisteeri!"
+                    Sonum = "Päring tuli valelt domeenilt!"
                 };
             }
-
         }
 
         [WebMethod(EnableSession = true)]
@@ -388,30 +409,5 @@ namespace TactSVC
             Byte[] hashedBytes = sha256.ComputeHash(inputBytes);
             return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
         }
-
-        //host name
-        [WebMethod(EnableSession = true)]
-        public string getHostName()
-        {
-            //string hName = "";
-            return HttpContext.Current.Request.ServerVariables["REMOTE_HOST"];
-            //System.Net.IPHostEntry host = new System.Net.IPHostEntry();
-            //host = System.Net.Dns.GetHostEntry(HttpContext.Current.Request.ServerVariables["REMOTE_HOST"]);
-            //return host.HostName.ToString();
-
-            ////Split out the host name from the FQDN
-            //if (host.HostName.Contains("."))
-            //{
-            //    string[] sSplit = host.HostName.Split('.');
-            //    hName = sSplit[0].ToString();
-            //}
-            //else
-            //{
-            //    hName = host.HostName.ToString();
-            //}
-
-            //return hName;
-        } 
-
     }
 }

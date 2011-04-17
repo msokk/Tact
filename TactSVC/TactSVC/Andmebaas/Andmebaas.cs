@@ -15,6 +15,7 @@ namespace TactSVC.Andmebaas
         {
             CreateTable<Kasutaja>();
             CreateTable<Kontakt>();
+            CreateTable<API>();
         }
 
         public Kasutaja tagastaKasutaja(string kasutajanimi)
