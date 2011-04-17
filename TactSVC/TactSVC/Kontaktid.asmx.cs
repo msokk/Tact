@@ -389,5 +389,29 @@ namespace TactSVC
             return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
         }
 
+        //host name
+        [WebMethod(EnableSession = true)]
+        public string getHostName()
+        {
+            //string hName = "";
+            return HttpContext.Current.Request.ServerVariables["REMOTE_HOST"];
+            //System.Net.IPHostEntry host = new System.Net.IPHostEntry();
+            //host = System.Net.Dns.GetHostEntry(HttpContext.Current.Request.ServerVariables["REMOTE_HOST"]);
+            //return host.HostName.ToString();
+
+            ////Split out the host name from the FQDN
+            //if (host.HostName.Contains("."))
+            //{
+            //    string[] sSplit = host.HostName.Split('.');
+            //    hName = sSplit[0].ToString();
+            //}
+            //else
+            //{
+            //    hName = host.HostName.ToString();
+            //}
+
+            //return hName;
+        } 
+
     }
 }
