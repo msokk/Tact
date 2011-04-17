@@ -367,6 +367,18 @@ namespace TactSVC
 
             return kontaktid;
         }
+        [WebMethod(EnableSession = true)]
+        public Kasutaja KuvaKasutaja(String parool, String eesnimi, String perenimi)
+        {
+            if (Session["kasutaja"] == null)
+            {
+                    return null;
+            }
+
+            Kasutaja k = (Kasutaja)Session["kasutaja"];
+            k.Parool = "";
+            return k;
+        }
 
         [WebMethod(EnableSession = true)]
         public Staatus EemaldaKontakt(int kontakt_id)
