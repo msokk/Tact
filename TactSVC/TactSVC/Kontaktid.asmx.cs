@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
@@ -27,31 +28,64 @@ namespace TactSVC
         [WebMethod]
         public Staatus LooKasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
+
             if (ab.tagastaKasutaja(kasutajanimi) == null)
             {
-                var result = ab.Insert(new Kasutaja()
+                ArrayList error = new ArrayList();
+                if (eesnimi == "")
                 {
-                    Kasutajanimi = kasutajanimi,
-                    Parool = ComputeHash(parool),
-                    Eesnimi = eesnimi,
-                    Perenimi = perenimi,
-                    FacebookId = facebookId
-                });
-
-                if (IsNumeric(result))
-                {
-                    return new Staatus()
-                    {
-                        Tyyp = "OK",
-                        Sonum = "Kasutaja lisatud!"
-                    };
+                    error.Add("eesnimi");
                 }
-                else
+
+                if (perenimi == "")
                 {
+                    error.Add("perenimi");
+                }
+
+                if (kasutajanimi == "")
+                {
+                    error.Add("kasutajanimi");
+                }
+
+                if (parool == "")
+                {
+                    error.Add("parool");
+                }
+
+                string viga = error.ToString();
+                if (viga == "")
+                {
+                    var result = ab.Insert(new Kasutaja()
+                    {
+                        Kasutajanimi = kasutajanimi,
+                        Parool = ComputeHash(parool),
+                        Eesnimi = eesnimi,
+                        Perenimi = perenimi,
+                        FacebookId = facebookId
+                    });
+
+                    if (IsNumeric(result))
+                    {
+                        return new Staatus()
+                        {
+                            Tyyp = "OK",
+                            Sonum = "Kasutaja lisatud!"
+                        };
+                    }
+                    else
+                    {
+                        return new Staatus()
+                        {
+                            Tyyp = "Viga",
+                            Sonum = "Süsteemi viga!"
+                        };
+                    }
+                }
+                else {
                     return new Staatus()
                     {
                         Tyyp = "Viga",
-                        Sonum = "Süsteemi viga!"
+                        Sonum = "Palun täitke järgmised väljad: " + error
                     };
                 }
             }
