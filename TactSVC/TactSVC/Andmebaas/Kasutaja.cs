@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Linq.SqlClient;
 using System.Web;
 using SQLite;
 
@@ -16,38 +17,65 @@ namespace TactSVC.Andmebaas
         public string Perenimi { get; set; }
         public string FacebookId { get; set; }
 
-
-        public Kontakt[] koikKontaktid(SQLiteConnection c)
+       public Kontakt[] otsiKontaktid(Kontakt otsing, SQLiteConnection c)
         {
             var q = from k in c.Table<Kontakt>()
                     where k.KasutajaId == Id
                     select k;
-            return q.ToArray();
-        }
 
-        public Kontakt[] otsiKontaktid(Kontakt otsing, SQLiteConnection c)
-        {
-            var q = from k in c.Table<Kontakt>()
-                    where k.KasutajaId == Id &&
-                    (otsing.Eesnimi != null) ? k.Eesnimi.Contains(otsing.Eesnimi) : true &&
-                    (otsing.Perenimi != null) ? k.Perenimi.Contains(otsing.Perenimi) : true &&
-                    (otsing.Asula != null) ? k.Asula.Contains(otsing.Asula) : true &&
-                    (otsing.Facebook != null) ? k.Facebook.Contains(otsing.Facebook) : true &&
-                    (otsing.Id != 0) ? k.Id == otsing.Id : true &&
-                    (otsing.Maakond != null) ? k.Maakond.Contains(otsing.Maakond) : true &&
-                    (otsing.MajaNr != null) ? k.MajaNr.Contains(otsing.MajaNr) : true &&
-                    (otsing.Orkut != null) ? k.Orkut.Contains(otsing.Orkut) : true &&
-                    (otsing.Riik != null) ? k.Riik.Contains(otsing.Riik) : true &&
-                    (otsing.Skype != null) ? k.Skype.Contains(otsing.Skype) : true &&
-                    (otsing.Tanav != null) ? k.Tanav.Contains(otsing.Tanav) : true &&
-                    (otsing.Twitter != null) ? k.Twitter.Contains(otsing.Twitter) : true &&
-                    (otsing.WindowsLiveMessenger != null) ? k.WindowsLiveMessenger.Contains(otsing.WindowsLiveMessenger) : true &&
-                    (otsing.EmailKodu != null) ? k.EmailKodu.Contains(otsing.EmailKodu) : true &&
-                    (otsing.EmailToo != null) ? k.EmailToo.Contains(otsing.EmailToo) : true &&
-                    (otsing.TelefonKodu != null) ? k.TelefonKodu.Contains(otsing.TelefonKodu) : true &&
-                    (otsing.TelefonMob != null) ? k.TelefonMob.Contains(otsing.TelefonMob) : true &&
-                    (otsing.TelefonToo != null) ? k.TelefonToo.Contains(otsing.TelefonToo) : true
-                    select k;
+            if (otsing.Id != 0)
+                q = q.Where(k => k.Id == otsing.Id);
+
+            if (otsing.Eesnimi != null)
+                q = q.Where(k => SqlMethods.Like(k.Eesnimi, otsing.Eesnimi));
+
+            if(otsing.Perenimi != null)
+                q = q.Where(k => k.Perenimi.Contains(otsing.Perenimi));
+
+            if(otsing.Asula != null) 
+                q = q.Where(k => k.Asula.Contains(otsing.Asula));
+
+            if(otsing.Facebook != null)
+                q = q.Where(k => k.Facebook.Contains(otsing.Facebook));
+
+            if(otsing.Maakond != null)
+                q = q.Where(k => k.Maakond.Contains(otsing.Maakond));
+
+            if(otsing.MajaNr != null)
+                q = q.Where(k => k.MajaNr.Contains(otsing.MajaNr));
+
+            if(otsing.Orkut != null)
+                q = q.Where(k => k.Orkut.Contains(otsing.Orkut));
+
+            if(otsing.Riik != null)
+                q = q.Where(k => k.Riik.Contains(otsing.Riik));
+
+            if(otsing.Skype != null)
+                q = q.Where(k => k.Skype.Contains(otsing.Skype));
+
+            if(otsing.Tanav != null)
+                q = q.Where(k => k.Tanav.Contains(otsing.Tanav));
+
+            if(otsing.Twitter != null)
+                q = q.Where(k => k.Twitter.Contains(otsing.Twitter));
+
+            if(otsing.WindowsLiveMessenger != null)
+                q = q.Where(k => k.WindowsLiveMessenger.Contains(otsing.WindowsLiveMessenger));
+
+            if(otsing.EmailKodu != null)
+                q = q.Where(k => k.EmailKodu.Contains(otsing.EmailKodu));
+
+            if(otsing.EmailToo != null)
+                q = q.Where(k => k.EmailToo.Contains(otsing.EmailToo));
+
+            if(otsing.TelefonKodu != null)
+                q = q.Where(k => k.TelefonKodu.Contains(otsing.TelefonKodu));
+
+            if(otsing.TelefonMob != null)
+                q = q.Where(k => k.TelefonMob.Contains(otsing.TelefonMob));
+
+            if(otsing.TelefonToo != null)
+                q = q.Where(k => k.TelefonToo.Contains(otsing.TelefonToo));
 
             return q.ToArray();
         }

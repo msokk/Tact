@@ -236,24 +236,24 @@ namespace TactSVC
             }, ab)[0];
 
             kontakt.KasutajaId = k.Id;
-            if(eesnimi != null) kontakt.Eesnimi = eesnimi;
-            if(perenimi != null) kontakt.Perenimi = perenimi;
-            if(telefonKodu != null) kontakt.TelefonKodu = telefonKodu;
-            if(telefonToo != null) kontakt.TelefonToo = telefonToo;
-            if(telefonMob != null) kontakt.TelefonMob = telefonMob;
-            if(emailKodu != null) kontakt.EmailKodu = emailKodu;
-            if(emailToo != null) kontakt.EmailToo = emailToo;
-            if(riik != null) kontakt.Riik = riik;
-            if(maakond != null) kontakt.Maakond = maakond;
-            if(asula != null) kontakt.Asula = asula;
-            if(tanav != null) kontakt.Tanav = tanav;
-            if(majaNr != null) kontakt.MajaNr = majaNr;
-            if(wlm != null) kontakt.WindowsLiveMessenger = wlm;
-            if(facebook != null) kontakt.Facebook = facebook;
-            if(orkut != null) kontakt.Orkut = orkut;
-            if(skype != null) kontakt.Skype = skype;
-            if(twitter != null) kontakt.Twitter = twitter;
-            if(pilt != null) kontakt.Pilt = pilt;
+            if(eesnimi != "") kontakt.Eesnimi = eesnimi;
+            if(perenimi != "") kontakt.Perenimi = perenimi;
+            if(telefonKodu != "") kontakt.TelefonKodu = telefonKodu;
+            if(telefonToo != "") kontakt.TelefonToo = telefonToo;
+            if(telefonMob != "") kontakt.TelefonMob = telefonMob;
+            if(emailKodu != "") kontakt.EmailKodu = emailKodu;
+            if(emailToo != "") kontakt.EmailToo = emailToo;
+            if(riik != "") kontakt.Riik = riik;
+            if(maakond != "") kontakt.Maakond = maakond;
+            if(asula != "") kontakt.Asula = asula;
+            if(tanav != "") kontakt.Tanav = tanav;
+            if(majaNr != "") kontakt.MajaNr = majaNr;
+            if(wlm != "") kontakt.WindowsLiveMessenger = wlm;
+            if(facebook != "") kontakt.Facebook = facebook;
+            if(orkut != "") kontakt.Orkut = orkut;
+            if(skype != "") kontakt.Skype = skype;
+            if(twitter != "") kontakt.Twitter = twitter;
+            if(pilt != "") kontakt.Pilt = pilt;
             int affected = ab.Update(kontakt);
             if (affected > 0)
             {
@@ -274,7 +274,9 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
-        public Kontakt[] KuvaKontakt(string kontakt_id)
+        public Kontakt[] KuvaKontakt(string kontakt_id, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
+            String telefonMob, String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
+            String majaNr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
             int id = 0;
             Int32.TryParse(kontakt_id, out id);
@@ -286,9 +288,29 @@ namespace TactSVC
 
             Kasutaja k = (Kasutaja)Session["kasutaja"];
 
-            Kontakt[] kontaktid = k.otsiKontaktid(new Kontakt {
-                    Id = id
-            }, ab);
+            Kontakt kontakt = new Kontakt();
+            kontakt.Id = id;
+            if (eesnimi != "") kontakt.Eesnimi = eesnimi;
+            if(eesnimi != "") kontakt.Eesnimi = eesnimi;
+            if(perenimi != "") kontakt.Perenimi = perenimi;
+            if(telefonKodu != "") kontakt.TelefonKodu = telefonKodu;
+            if(telefonToo != "") kontakt.TelefonToo = telefonToo;
+            if(telefonMob != "") kontakt.TelefonMob = telefonMob;
+            if(emailKodu != "") kontakt.EmailKodu = emailKodu;
+            if(emailToo != "") kontakt.EmailToo = emailToo;
+            if(riik != "") kontakt.Riik = riik;
+            if(maakond != "") kontakt.Maakond = maakond;
+            if(asula != "") kontakt.Asula = asula;
+            if(tanav != "") kontakt.Tanav = tanav;
+            if(majaNr != "") kontakt.MajaNr = majaNr;
+            if(wlm != "") kontakt.WindowsLiveMessenger = wlm;
+            if(facebook != "") kontakt.Facebook = facebook;
+            if(orkut != "") kontakt.Orkut = orkut;
+            if(skype != "") kontakt.Skype = skype;
+            if(twitter != "") kontakt.Twitter = twitter;
+            if(pilt != "") kontakt.Pilt = pilt;
+            Kontakt[] kontaktid = k.otsiKontaktid(kontakt, ab);
+
             return kontaktid;
         }
 
