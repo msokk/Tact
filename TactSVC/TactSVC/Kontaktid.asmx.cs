@@ -368,7 +368,7 @@ namespace TactSVC
             return kontaktid;
         }
         [WebMethod(EnableSession = true)]
-        public Kasutaja KuvaKasutaja(String parool, String eesnimi, String perenimi)
+        public Kasutaja KuvaKasutaja()
         {
             if (Session["kasutaja"] == null)
             {
