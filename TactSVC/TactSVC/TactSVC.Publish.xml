@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\Users\Mihkel\Desktop\TactMono" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/TactSVC.dll" publishTime="04/17/2011 20:35:03" />
+    <file relUrl="bin/TactSVC.pdb" publishTime="04/17/2011 20:35:03" />
+    <file relUrl="sqlite3.dll" publishTime="04/17/2011 20:33:17" />
+    <file relUrl="Web.config" publishTime="04/17/2011 20:33:17" />
+    <file relUrl="Kontaktid.asmx" publishTime="04/17/2011 20:33:17" />
+    <file relUrl="bin/sqlite3.dll" publishTime="04/17/2011 20:33:17" />
+  </publishProfile>
+</publishData>

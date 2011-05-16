@@ -10,6 +10,8 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using TactSVC.Andmebaas;
 using System.Text;
+using System.Web.SessionState;
+using System.Web.Script.Services;
 
 
 namespace TactSVC
@@ -17,15 +19,16 @@ namespace TactSVC
     /// <summary>
     /// Summary description for Kontaktid
     /// </summary>
+    ///     
     [WebService(Namespace = "http://kontaktid.sokk.ee/")]
-    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    [System.ComponentModel.ToolboxItem(false)]
-    [System.Web.Script.Services.ScriptService]
+    [ScriptService]
     public class Kontaktid : System.Web.Services.WebService
     {
         Andmebaas.Andmebaas ab = new Andmebaas.Andmebaas("andmebaas.db");
 
+
         [WebMethod]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Staatus LooKasutaja(String eesnimi, String perenimi, String kasutajanimi, String parool, String facebookId = "")
         {
 
@@ -111,9 +114,13 @@ namespace TactSVC
             }
         }
 
+        
+
         [WebMethod (EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Staatus LogiSisse(String kasutajanimi, String parool, String voti)
         {
+
             parool = ComputeHash(parool);
             Kasutaja k = ab.tagastaKasutaja(kasutajanimi);
             string domeen = API.votaDomeen(voti, ab);
@@ -170,8 +177,10 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Staatus LogiValja()
         {
+
             Session.Clear();
             return new Staatus() { 
                 Tyyp = "OK",
@@ -180,8 +189,10 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Staatus MuudaKasutaja(String parool, String eesnimi, String perenimi)
         {
+
             if (Session["kasutaja"] == null)
             {
                 return new Staatus()
@@ -217,10 +228,12 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Staatus LisaKontakt(String eesnimi, String perenimi, String telefonKodu, String telefonToo, String telefonMob,
             String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
             String maja_nr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
+
             if (Session["kasutaja"] == null)
             {
                 return new Staatus()
@@ -273,10 +286,12 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Staatus MuudaKontakt(int kontaktId, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
             String telefonMob, String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
             String majaNr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
+
             if(Session["kasutaja"] == null) {
                 return new Staatus() {
                     Tyyp = "Viga",
@@ -328,10 +343,12 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Kontakt[] KuvaKontakt(String kontakt_id, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
             String telefonMob, String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
             String majaNr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
+
             int id = 0;
             Int32.TryParse(kontakt_id, out id);
 
@@ -368,8 +385,10 @@ namespace TactSVC
             return kontaktid;
         }
         [WebMethod(EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Kasutaja KuvaKasutaja()
         {
+
             if (Session["kasutaja"] == null)
             {
                     return null;
@@ -381,8 +400,10 @@ namespace TactSVC
         }
 
         [WebMethod(EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Staatus EemaldaKontakt(int kontakt_id)
         {
+
             if (Session["kasutaja"] == null)
             {
                 return new Staatus()

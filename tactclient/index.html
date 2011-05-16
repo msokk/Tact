@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tact</title>
+        <meta	<meta charset="utf-8">
+        <link href="style.css" rel="stylesheet" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+    </head>
+    <body>
+        <div id="wrapper">
+            <a id="hpLink" href="javascript:void(0);" onclick="History.navigate('login.html')">
+                <div id="logo">
+                    <div id="logoTextBig">Tact</div>
+                    <div id="logoImg"><img src="images/logo.png" alt="logo" /></div>
+                    <div id="logoTextSmall">Kontaktihaldus</div>
+                    <div class="clear"></div>
+                </div>
+            </a>
+            <div id="main">
+              <img src="images/loader.gif" />
+            </div>
+            <div id="footer">
+                <div id="footerLeft">
+                    <a href="javascript:void(0);" onclick="History.navigate('register.html')">Registreeri kasutajaks</a>
+                    <img src="images/menuSplitter.png" />
+                    <a href="javascript:void(0);" onclick="History.navigate('abi.html')">Abi</a>
+                    <img src="images/menuSplitter.png" />
+                    <a href="javascript:void(0);" onclick="History.navigate('info.html')">Info</a>
+                </div>
+                <div id="footerRight">
+                    <img src="images/asp.png" alt="asp" style="width: 70px;" />
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <script src="js/jquery-1.6.1.min.js"></script>
+        <script src="js/history.adapter.jquery.js"></script>
+        <script src="js/history.js"></script>
+        <script src="js/history.html4.js"></script>
+        <script src="js/tactapi.js"></script>
+        <script src="js/routes.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

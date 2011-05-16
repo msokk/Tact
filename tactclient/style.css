@@ -1,0 +1,370 @@
+/* RESET CSS */
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000;
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+/* RESET CSS END */
+
+body {
+    background: url('images/bg.png') center repeat-y #ccc;
+    font-family: 'Trebuchet MS', Helvetica, Arial, Verdana;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+div#status {
+    color: red;
+    font-size: 24px;
+    margin: 10px;
+}
+
+#loader {
+    visibility: hidden;
+}
+
+div#wrapper {
+    margin: auto;
+    margin-top: 60px;
+    width: 700px;
+}
+
+div#logo {
+    width: 437px;
+    margin: auto;
+}
+
+div#logo > div {
+    padding: 10px;
+}
+
+div#logoTextBig {
+    float: left;
+    font-size: 48px;
+    color: #80878c;
+}
+
+div#logoTextSmall {
+    float: left;
+    font-size: 30px;
+    color: #b5b5b5;
+    font-weight: bold;
+    margin-top: 13px;
+}
+div#pealkiri{
+    text-align: left;
+    margin: 40px 0 30px 15px;
+    font-size: 30px;
+    color: #b5b5b5;
+    font-weight: bold;
+
+}
+
+div#logoImg {
+    float: left;
+    margin-top: -10px;
+}
+
+div.clear {
+    clear: both;
+}
+
+div#main {
+    text-align: center;
+    color: #507ba5;
+    font-weight: bold;
+}
+
+div#main input {
+    margin: 0 10px 0 10px;
+    width: 180px;
+    border: 1px solid #cecece;
+    padding: 7px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    color: #898989;
+    -moz-box-shadow: 0 0 2px #cecece;
+    -webkit-box-shadow: 0 0 2px #cecece;
+    box-shadow: 0 0 2px #cecece;
+    -webkit-background-clip: padding-box;
+}
+
+div#main input[type='search'] { /*BG HERE!*/
+  padding-left: 25px;
+}
+
+div#main button {
+    display: block;
+    float: right; 
+    margin: 0 10px 0 10px;
+    border: 1px solid #cecece;
+    height: 32px;
+    padding: 0 7px 0 7px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    color: #898989;
+    -moz-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #f8f8f8;
+    -webkit-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #f8f8f8;
+    box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #f8f8f8;
+    -webkit-background-clip: padding-box;
+    background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+    background-image: -ms-linear-gradient(#fff, #e6e6e6);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #fff),color-stop(1, #e6e6e6));
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #fff;
+    font-family: 'Trebuchet MS';
+}
+
+.controls  button {
+  display: inline;
+}
+
+div#main button:hover {
+    cursor: pointer;
+    -moz-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
+    -webkit-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
+    box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
+    background-image: -moz-linear-gradient(top, #f8f8f8, #d9d9d9);
+    background-image: -ms-linear-gradient(#f8f8f8, #d9d9d9);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f8f8f8),color-stop(1, #d9d9d9));
+}
+
+div#main button:active {
+    cursor: pointer;
+    -moz-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
+    -webkit-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
+    box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
+    background-image: -moz-linear-gradient(top, #d9d9d9, #f8f8f8);
+    background-image: -ms-linear-gradient(#d9d9d9, #f8f8f8);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f8f8f8),color-stop(1, #d9d9d9));
+    color: #cecece;
+}
+
+div#footer {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-top: 1px dashed #cecece;
+    padding: 10px 8px 0 8px;
+}
+
+div#footer a {
+    color: #5b6269;
+}
+
+div#footer a:hover {
+    text-decoration: underline;
+    color: #5b6269;
+}
+
+
+div#footerLeft {
+    float: left;
+}
+
+div#footerLeft > img {
+    vertical-align: middle;
+    padding: 0 10px;
+}
+
+div#footerRight {
+    float: right;
+}
+
+div#footerRight > img{
+    margin-top: -5px;
+}
+
+#contactList {
+    margin: 10px;
+    list-style-type: none;
+}
+
+#contactList li:nth-child(even) {
+    background-image: -moz-linear-gradient(top, #e6e6e6, #fff);
+    background-image: -ms-linear-gradient(#e6e6e6, #fff);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #e6e6e6),color-stop(1, #fff)); 
+}
+
+#contactList li:nth-child(odd) {
+    background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+    background-image: -ms-linear-gradient(#fff, #e6e6e6);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #fff),color-stop(1, #e6e6e6));
+}
+
+/* REGISTER */
+
+table {
+    margin: auto;
+}
+
+td {
+    text-align: left;
+    padding: 10px;
+}
+
+/* ABI */
+
+
+
+h2 {
+    font-size: 1.5em;
+    padding-bottom: 5px;
+}
+
+div#content {
+    padding: 0 10px 0 10px;
+    text-align: left;
+    color: black;
+    font-weight: normal;
+    line-height: 1.2em;
+}
+
+#contactList li {
+    text-align: left;
+    padding:5px;
+}
+
+div.contact-header {
+  border: solid 1px lightgray;
+  cursor: pointer;
+  height: 50px;
+}
+
+div.contact-body {
+  display: none;
+}
+
+div.contact-body td:nth-child(odd) {
+  text-decoration: underline;
+}
+
+div.contact-header .arrow {
+  float: right;
+  margin: 9px 5px 0 0;
+  font-size: 30px;
+  text-shadow: 0 0 1px lightgray;
+  color: lightgray;
+}
+span.nimi{
+    font-size:20px;
+    font-weight: bold;
+    color: gray;
+    vertical-align: middle;
+}
+span.lisakasutaja{
+    text-align: left;
+
+}
+
+
+img.profile {
+    height: 30px;
+    width: 30px;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+img.profile-fixed {
+  position: absolute;
+}
