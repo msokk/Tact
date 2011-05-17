@@ -22,14 +22,14 @@ $(function() {
         }
         
         if(window.firstUrl) {
-          History.navigate(window.firstUrl);
+          TactClient.go(window.firstUrl);
           delete window.firstUrl;
         }
     });
   });
   
   //Helper method
-  History.navigate = function(url) {
+  TactClient.go = function(url) {
     History.pushState(null, null, url);
   };  
   
@@ -51,7 +51,7 @@ $(function() {
       if(data == null) {
         History.replaceState(null,null,'login.html');
       } else {
-        History.navigate('contacts.html');
+        TactClient.go('contacts.html');
       }
   
     });

@@ -105,7 +105,7 @@ Tact.prototype.createContact = function(params, cb) {
     maakond: params.maakond || '',
     asula: params.asula || '',
     tanav: params.tanav || '',
-    majaNr: params.majaNr || '',
+    maja_nr: params.maja_nr || '',
     wlm: params.wlm || '',
     facebook: params.facebook || '',
     orkut: params.orkut || '',
@@ -140,7 +140,7 @@ Tact.prototype.viewContact = function(params, cb) {
     maakond: params.maakond || '',
     asula: params.asula || '',
     tanav: params.tanav || '',
-    majaNr: params.majaNr || '',
+    maja_nr: params.maja_nr || '',
     wlm: params.wlm || '',
     facebook: params.facebook || '',
     orkut: params.orkut || '',
@@ -149,6 +149,12 @@ Tact.prototype.viewContact = function(params, cb) {
     pilt: params.pilt || ''
   };
   this.request('KuvaKontakt', params, function(obj) {
+    cb && cb(obj);
+  });
+};
+
+Tact.prototype.searchContact = function(param, cb) {
+  this.request('OtsiKontakt', { param: param }, function(obj) {
     cb && cb(obj);
   });
 };
@@ -167,7 +173,7 @@ Tact.prototype.editContact = function(contactId, params, cb) {
     maakond: params.maakond || '',
     asula: params.asula || '',
     tanav: params.tanav || '',
-    majaNr: params.majaNr || '',
+    maja_nr: params.maja_nr || '',
     wlm: params.wlm || '',
     facebook: params.facebook || '',
     orkut: params.orkut || '',

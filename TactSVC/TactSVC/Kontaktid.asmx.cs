@@ -243,6 +243,15 @@ namespace TactSVC
                 };
             }
 
+            if (eesnimi == "")
+            {
+                return new Staatus()
+                {
+                    Tyyp = "Viga",
+                    Sonum = "Eesnimi on nõutud!"
+                };
+            }
+
             Kasutaja k = (Kasutaja)Session["Kasutaja"];
 
             int rowsAffected = k.LisaKontakt(new Kontakt()
@@ -384,6 +393,21 @@ namespace TactSVC
 
             return kontaktid;
         }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
+        public Kontakt[] OtsiKontakt(string param)
+        {
+            if (Session["kasutaja"] == null)
+            {
+                return null;
+            }
+
+            Kasutaja k = (Kasutaja)Session["kasutaja"];
+
+            return k.otsiKontaktid(param, ab);
+        }
+
         [WebMethod(EnableSession = true)]
         [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Kasutaja KuvaKasutaja()

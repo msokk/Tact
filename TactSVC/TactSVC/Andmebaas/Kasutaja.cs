@@ -90,6 +90,30 @@ namespace TactSVC.Andmebaas
             return c.Query<Kontakt>(query, string.Empty).ToArray();
         }
 
+       public Kontakt[] otsiKontaktid(string param, SQLiteConnection c)
+       {
+           string query = "SELECT * FROM Kontakt WHERE ";
+            query += "Eesnimi LIKE '%" + param + "%' OR ";
+            query += "Perenimi LIKE '%" + param + "%' OR ";
+            query += "Asula LIKE '%" + param + "%' OR ";
+            query += "Facebook LIKE '%" + param + "%' OR ";
+            query += "Maakond LIKE '%" + param + "%' OR ";
+            query += "MajaNr LIKE '%" + param + "%' OR ";
+            query += "Orkut LIKE '%" + param + "%' OR ";
+            query += "Riik LIKE '%" + param + "%' OR ";
+            query += "Skype LIKE '%" + param + "%' OR ";
+            query += "Tanav LIKE '%" + param + "%' OR ";
+            query += "Twitter LIKE '%" + param + "%' OR ";
+            query += "WindowsLiveMessenger LIKE '%" + param + "%' OR ";
+            query += "EmailKodu LIKE '%" + param + "%' OR ";
+            query += "EmailToo LIKE '%" + param + "%' OR ";
+            query += "TelefonKodu LIKE '%" + param + "%' OR ";
+            query += "TelefonMob LIKE '%" + param + "%' OR ";
+            query += "TelefonToo LIKE '%" + param + "%'";
+
+           return c.Query<Kontakt>(query, string.Empty).ToArray();
+       }
+
         public int LisaKontakt(Kontakt k, SQLiteConnection c)
         {
             k.KasutajaId = Id;

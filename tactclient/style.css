@@ -94,6 +94,10 @@ input, select {
     vertical-align:middle;
 }
 
+.hidden {
+  display: none;
+}
+
 /* RESET CSS END */
 
 body {
@@ -276,6 +280,10 @@ div#footerRight > img{
 #contactList {
     margin: 10px;
     list-style-type: none;
+}
+
+#contactList li {
+
 }
 
 #contactList li:nth-child(even) {
