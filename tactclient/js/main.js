@@ -6,6 +6,7 @@ $(function() {
   
   //Setup router
   History.Adapter.bind(window, 'statechange', function() {
+    $('#notification').html('').slideUp();
     var state = History.getState();
     
     if(state.hash.indexOf('/' != -1)) {
@@ -15,7 +16,6 @@ $(function() {
       state.hash = '/' + state.hash;
     }
     $.get(state.hash, function(data) {
-
         $('#main').html(data);
         if(TactClient.routes[state.hash]) {
           TactClient.routes[state.hash]();
@@ -39,6 +39,15 @@ $(function() {
       window.location.href = '/index.html';
     });
   };
+  
+  TactClient.notify = function(message, error) {
+    $('#notification').html(message).slideDown();
+    if(error) {
+      $('#notification').css('color', 'red');
+    } else {
+      $('#notification').css('color', 'green');
+    }
+  };  
   
   //Fragment switch
   if(location.search != "") {

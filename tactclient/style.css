@@ -124,6 +124,12 @@ div#status {
     visibility: hidden;
 }
 
+#notification {
+  text-align: center;
+  font-size: 24px;
+  display: none;
+}
+
 div#wrapper {
     margin: auto;
     margin-top: 60px;
@@ -174,6 +180,7 @@ div#main {
     text-align: center;
     color: #507ba5;
     font-weight: bold;
+    min-height: 300px;
 }
 
 div#main input {

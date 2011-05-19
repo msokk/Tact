@@ -177,9 +177,43 @@ TactClient.routes = {
       $("input[type='text']").each(function(index, item) {
         params[$(item).attr('name')] = $(item).val();
       });
+      
+      //TODO: Validation here!
       TactClient.Api.createContact(params, function(result) {
-        console.log(result);
-    });   
+        var error = false;
+        if(result.Tyyp == 'Viga') {
+          error = true;
+        }
+        TactClient.notify(result.Sonum, error);
+      });   
+    });
+  },
+  
+  'register.html': function() {
+
+    $('#registerBtn').click(function() {
+      var params = {};
+      $("input[type='text']").each(function(index, item) {
+        var value = $(item).val();
+        var key = $(item).attr('name');
+        params[key] = value;
+        
+      });
+      params.parool = $("input[name='parool']").val();
+      params.parool2 = $("input[name='parool2']").val();
+      
+      if(params.parool != '' && params.parool2 != '' && params.parool != params.parool2) {
+        TactClient.notify('Paroolid ei kattu!', true);
+        return;
+      }
+      
+      TactClient.Api.createUser(params, function(result) {
+          var error = false;
+          if(result.Tyyp == 'Viga') {
+            error = true;
+          }
+          TactClient.notify(result.Sonum, error);
+      });
     });
   }
 
