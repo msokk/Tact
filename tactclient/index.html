@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <title>Tact</title>
@@ -34,6 +34,17 @@
                 <div class="clear"></div>
             </div>
         </div>
+        <div id="fb-root"></div>
+        <script>
+          window.fbAsyncInit = function() { FB.init({appId: '215798108437365', 
+            status: true, cookie: true, xfbml: false}); };
+          (function() {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+              '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+          }());
+        </script>
         <script src="js/jquery-1.6.1.min.js"></script>
         <script src="js/history.adapter.jquery.js"></script>
         <script src="js/history.js"></script>

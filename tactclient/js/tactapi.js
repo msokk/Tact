@@ -23,7 +23,7 @@ var Tact = function(apiKey, host, port) {
 Tact.prototype.request = function(method, params, callback) {
   for(var i in params) {
     if(typeof params[i] == 'string') {
-      params[i] = '"' + params[i] + '"';
+      params[i] = '"' + escape(params[i]) + '"';
     }
   }
   
@@ -33,7 +33,8 @@ Tact.prototype.request = function(method, params, callback) {
     data: params,
     dataType: 'jsonp',
     success: function(json) {
-      callback && callback(json.d);
+      var result = JSON.parse(unescape(JSON.stringify(json)));
+      callback && callback(result.d);
     }
   });
 };
