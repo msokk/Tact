@@ -19,9 +19,24 @@ div#status {
 }
 
 #notification {
-  text-align: center;
-  font-size: 24px;
-  display: none;
+    position: fixed;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    z-index: 10;
+    padding-top: 8px;
+    height: 18px;
+    margin-top: -2px;
+    text-align: center;
+    display: none;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #9ed675;
+    background: #e0facd;
+    color: #5f9239;
+    font-weight: bold;
+    top: -2px;
 }
 
 div#wrapper {
