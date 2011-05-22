@@ -1,5 +1,46 @@
+/**
+ * Tact HTML5 Client Logic
+ * TODO: Unified notification handling, localStorage wrapper, validation
+ */
+
+/**
+ * Define global namespace
+ */
 window.TactClient = {};
 
+/**
+ * Log out from Tact
+ * Clears localStorage and logs out
+ * @public
+ */
+TactClient.logout = function() {
+  delete window.localStorage['loggedin'];
+  TactClient.Api.logout(function() {
+    window.location.href = '/index.html';
+  });
+};
+
+/**
+ * Set notification text
+ * @param {String} Message text
+ * @param {Boolean} If it's error
+ * @public
+ */
+TactClient.notify = function(message, error) {
+  $('#notification').html(message).slideDown();
+  if(error) {
+    $('#notification').css('color', 'red');
+  } else {
+    $('#notification').css('color', 'green');
+  }
+};
+
+/**
+ * Show contact editing form
+ * @param {Number} Contact ID
+ * @public
+ * TODO: Refractor with template
+ */
 TactClient.editContact = function(id) {
 
   var c = JSON.parse(window.localStorage.getItem('currentContacts'))[id];
@@ -77,6 +118,11 @@ TactClient.editContact = function(id) {
   $('#contact-' + id).html(result);  
 };
 
+/**
+ * Save currently edited contact
+ * @param {Number} Contact ID
+ * @public
+ */
 TactClient.saveContact = function(id) {
   var params = {};
   $("input[type='text']").each(function(index, item) {
@@ -98,6 +144,11 @@ TactClient.saveContact = function(id) {
   });
 };
 
+/**
+ * Delete contact
+ * @param {Number} Contact ID
+ * @public
+ */
 TactClient.deleteContact = function(id) {
   var answer = confirm("Oled kindel?");
   if(answer) {
@@ -111,8 +162,14 @@ TactClient.deleteContact = function(id) {
   }
 };
 
-
-//TODO: Refractor this and upper piece of *!
+/**
+ * Render single contact in the list
+ * @param {Object} New contact data to be re-rendered
+ * @param {Number} Contact ID
+ * @public
+ * @return {String} Compiled HTML
+ * TODO: Refractor with template
+ */
 TactClient.renderContact = function(c, id) {
   if(id) {
     c = JSON.parse(window.localStorage.getItem('currentContacts'))[id];
@@ -187,10 +244,15 @@ TactClient.renderContact = function(c, id) {
   return result;
 }
 
+/**
+ * Render contactlist
+ * @param {Object} Contacts
+ * @public
+ */
 TactClient.renderContacts = function(contacts) {
-  /*if(!contacts) {
+  if(!contacts) {
     location.href = '/index.html';
-  }*/
+  }
 
   var result = '';
   var lsContacts = {};
@@ -200,6 +262,8 @@ TactClient.renderContacts = function(contacts) {
     result += TactClient.renderContact(contacts[i]);
     result += '</li>';
   }
+  
+  //Cache contacts and search
   window.localStorage.setItem('currentContacts', JSON.stringify(lsContacts));
   window.localStorage.setItem('currentResult', result);
   window.localStorage.setItem('currentSearch', $('#contactSearch').val() || '');
@@ -207,7 +271,12 @@ TactClient.renderContacts = function(contacts) {
 
 };
 
+/**
+ * Bind contactlist handlers
+ * @public
+ */
 TactClient.bindContactHandlers = function() {
+  //Contact item expander
   $('.contact-header').live('click', function() {
     var body = $(this).parent().find('.contact-body');
     if(body.css('display') == 'none') {
@@ -218,10 +287,12 @@ TactClient.bindContactHandlers = function() {
     $(body).toggle();
   });
   
+  //Facebook url
   $('.contact-body .fb').live('click', function() {
     window.location.href = $(this).text();
   });
   
+  //Profile image hover
   $('.contact-header span.profile').live('hover', function() {
     $(this).toggleClass('profile-fixed');
   }, function() {
@@ -229,7 +300,13 @@ TactClient.bindContactHandlers = function() {
   });
 };
 
+/**
+ * Tact HTML5 Client Routes
+ */
 TactClient.routes = {
+  /**
+   * Login form logic
+   */
   'login.html': function() {
   
     //Login logic
@@ -262,26 +339,32 @@ TactClient.routes = {
     });
   },
   
+  /**
+   * Contact list logic - search
+   */
   'contacts.html': function() {
     var cached = window.localStorage.getItem('currentResult');
     var cachedSearch = window.localStorage.getItem('currentSearch') || '';
     $('#contactSearch').val(cachedSearch);
     
+    //Display from cache first for speed
     if(cached) {
       $('#contactList').html(cached);
     }
     TactClient.Api.searchContact(cachedSearch, function(contacts) {
       TactClient.renderContacts(contacts);
     });  
+    
+    //Draw new footer
     $('#hpLink').attr('onclick', 'TactClient.go(\'contacts.html\')');
     $('#footerLeft a').first().remove();
     $('#footerLeft span').remove();
-    $('#footerLeft').prepend('<span><a href="javascript:void();" onclick='
+    $('#footerLeft').prepend('<span><a href="javascript:void(0);" onclick='
       +'"TactClient.go(\'profile.html\')">Profiil</a> <img src="images/'
-      +'menuSplitter.png" /> <a href="javascript:void();" onclick='
+      +'menuSplitter.png" /> <a href="javascript:void(0);" onclick='
       +'"TactClient.logout()">Logi Välja</a> </span>');
     
-    
+    //Bind search
     $('#contactSearch').keyup(function(e) {
       var value = $(this).val();
       clearTimeout(TactClient.timer);
@@ -295,6 +378,9 @@ TactClient.routes = {
     TactClient.bindContactHandlers();
   },
   
+  /**
+   * Add contacts
+   */
   'addcontact.html': function() {
     $('#saveContact').click(function() {
       var params = {};
@@ -302,7 +388,6 @@ TactClient.routes = {
         params[$(item).attr('name')] = $(item).val();
       });
       
-      //TODO: Validation here!
       TactClient.Api.createContact(params, function(result) {
         var error = false;
         if(result.Tyyp == 'Viga') {
@@ -318,6 +403,9 @@ TactClient.routes = {
     });
   },
   
+  /**
+   * Registration form logic
+   */
   'register.html': function() {
 
     $('#registerBtn').click(function() {
@@ -346,7 +434,11 @@ TactClient.routes = {
     });
   },
   
+  /**
+   * Profile page logic
+   */
   'profile.html': function() {
+    //Prefill data from API
     TactClient.Api.getUserDetails(function(details) {
       $("input[name='eesnimi']").val(details.Eesnimi);
       $("input[name='perenimi']").val(details.Perenimi);
@@ -355,9 +447,6 @@ TactClient.routes = {
     $("input[name='eesnimi'], input[name='perenimi']").click(function() {
       $(this).select();
     });
-    
-    
-    
     
     var getSession = function(cb) {
       FB.getLoginStatus(function(response) {
@@ -372,6 +461,8 @@ TactClient.routes = {
         }
       });
     };
+    
+    //Bind save button
     $('#profilesaveBtn').click(function() {
       var params = {
         eesnimi: $("input[name='eesnimi']").val(),
@@ -401,7 +492,7 @@ TactClient.routes = {
     });
     
     
-    
+    //Bind facebook import button
     $('.facebook').click(function() {
     
       getSession(function(session) {
@@ -428,7 +519,7 @@ TactClient.routes = {
             });
           }
         });
-      });
+      }); //getSession
       
     });
 

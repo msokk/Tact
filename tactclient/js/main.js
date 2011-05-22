@@ -1,3 +1,7 @@
+/**
+ * Tact HTML5 Client Entry
+ */
+ 
 $(function() {
   //Create api client
   var api = TactClient.Api = new Tact(1234);
@@ -17,13 +21,16 @@ $(function() {
       state.hash = '/' + state.hash;
     }
     
-    //Load 
+    //Load url based on fragments
     $.get(state.hash, function(data) {
         $('#main').html(data);
+        
+        //Execute route code
         if(TactClient.routes[state.hash]) {
           TactClient.routes[state.hash]();
         }
         
+        //Trigger first entry
         if(window.firstUrl) {
           TactClient.go(window.firstUrl);
           delete window.firstUrl;
@@ -34,25 +41,9 @@ $(function() {
   //Helper method
   TactClient.go = function(url) {
     History.pushState(null, null, url);
-  };  
-  
-  TactClient.logout = function() {
-    delete window.localStorage['loggedin'];
-    TactClient.Api.logout(function() {
-      window.location.href = '/index.html';
-    });
   };
   
-  TactClient.notify = function(message, error) {
-    $('#notification').html(message).slideDown();
-    if(error) {
-      $('#notification').css('color', 'red');
-    } else {
-      $('#notification').css('color', 'green');
-    }
-  };  
-  
-  //Fragment switch
+  //Fragment switch (ensures proper first entry)
   if(location.search != "") {
     window.firstUrl = location.search.substr(1);
   }

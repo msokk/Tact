@@ -18,7 +18,9 @@ var Tact = function(apiKey, host, port) {
 /**
  * Lowlevel JSONP request
  * @private
- * 
+ * @param {String} Method name
+ * @param {Object} Parameter dictionary
+ * @param {Function} Callback with result
  */
 Tact.prototype.request = function(method, params, callback) {
   for(var i in params) {
@@ -39,6 +41,12 @@ Tact.prototype.request = function(method, params, callback) {
   });
 };
 
+/**
+ * Tact Login
+ * @public
+ * @param {Object} Parameter dictionary
+ * @param {Function} Callback with result
+ */
 Tact.prototype.login = function(params, cb) {
   this.request('LogiSisse', {
     kasutajanimi: params.kasutajanimi,
@@ -52,6 +60,11 @@ Tact.prototype.login = function(params, cb) {
   });
 };
 
+/**
+ * Tact logout
+ * @public
+ * @param {Function} Callback with result
+ */
 Tact.prototype.logout = function(cb) {
   this.request('LogiValja', {
   }, function(obj) {
@@ -62,6 +75,11 @@ Tact.prototype.logout = function(cb) {
   });
 };
 
+/**
+ * Fetch authenticated user details
+ * @public
+ * @param {Function} Callback with result
+ */
 Tact.prototype.getUserDetails = function(cb) {
   this.request('KuvaKasutaja', {
   }, function(obj) {
@@ -69,6 +87,12 @@ Tact.prototype.getUserDetails = function(cb) {
   });
 };
 
+/**
+ * Edit authenticated user details
+ * @public
+ * @param {Object} Parameter dictionary
+ * @param {Function} Callback with result
+ */
 Tact.prototype.editUserDetails = function(params, cb) {
   var params = {
     parool: params.parool || '',
@@ -80,6 +104,12 @@ Tact.prototype.editUserDetails = function(params, cb) {
   });
 };
 
+/**
+ * Create new user
+ * @public
+ * @param {Object} Parameter dictionary
+ * @param {Function} Callback with result
+ */
 Tact.prototype.createUser = function(params, cb) {
   var params = {
     kasutajanimi: params.kasutajanimi || '',
@@ -93,6 +123,12 @@ Tact.prototype.createUser = function(params, cb) {
   });
 };
 
+/**
+ * Create new contact
+ * @public
+ * @param {Object} Parameter dictionary
+ * @param {Function} Callback with result
+ */
 Tact.prototype.createContact = function(params, cb) {
   var params = {
     perenimi: params.perenimi || '',
@@ -119,6 +155,12 @@ Tact.prototype.createContact = function(params, cb) {
   });
 };
 
+/**
+ * Delete contact
+ * @public
+ * @param {Number} Contact ID
+ * @param {Function} Callback with result
+ */
 Tact.prototype.deleteContact = function(contactId, cb) {
   this.request('EemaldaKontakt', { 
     kontakt_id: contactId || ''
@@ -127,6 +169,12 @@ Tact.prototype.deleteContact = function(contactId, cb) {
   });
 };
 
+/**
+ * View a contact
+ * @public
+ * @param {Object} Parameter dictionary
+ * @param {Function} Callback with result
+ */
 Tact.prototype.viewContact = function(params, cb) {
   var params = {
     kontakt_id: params.kontakt_id || '',
@@ -154,12 +202,25 @@ Tact.prototype.viewContact = function(params, cb) {
   });
 };
 
+/**
+ * Do search over contacts
+ * @public
+ * @param {Object} Parameter dictionary
+ * @param {Function} Callback with result
+ */
 Tact.prototype.searchContact = function(param, cb) {
   this.request('OtsiKontakt', { param: param }, function(obj) {
     cb && cb(obj);
   });
 };
 
+/**
+ * Edits contact
+ * @public
+ * @param {Number} Contact ID
+ * @param {Object} Parameter dictionary
+ * @param {Function} Callback with result
+ */
 Tact.prototype.editContact = function(contactId, params, cb) {
   var params = {
     kontakt_id: contactId || '',
