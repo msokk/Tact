@@ -12,7 +12,6 @@ a, a:visited { text-decoration: none; }
 div#status {
   color: red;
   font-size: 24px;
-  margin: 10px;
 }
 
 #loader {
@@ -75,7 +74,7 @@ div#main {
     text-align: center;
     color: #507ba5;
     font-weight: bold;
-    min-height: 320px;
+    min-height: 120px;
 }
 
 div#main input {
@@ -95,6 +94,7 @@ div#main input {
 
 div#main input[type='search'] { /*BG HERE!*/
   padding-left: 25px;
+  background: url('images/magnifier.png') no-repeat 5px center #fff;
 }
 
 div#main button {
@@ -220,10 +220,6 @@ div#footerRight > img{
     list-style-type: none;
 }
 
-#contactList li {
-
-}
-
 #contactList li:nth-child(even) {
     background-image: -moz-linear-gradient(#e6e6e6, #fff);
     background-image: -ms-linear-gradient(#e6e6e6, #fff);
@@ -268,12 +264,22 @@ div#content {
 #contactList li {
     text-align: left;
     padding:5px;
+    color: #161616;
+    font-weight: normal;
+}
+
+#contactList li  table{
+  margin: 0;
 }
 
 div.contact-header {
   border: solid 1px lightgray;
   cursor: pointer;
   height: 50px;
+}
+
+#contactList li .contact-header:hover {
+  background: #e6e6e6;
 }
 
 div.contact-body {
@@ -292,6 +298,8 @@ div.contact-header .arrow {
   text-shadow: 0 0 1px lightgray;
   color: lightgray;
 }
+
+
 span.nimi{
     font-size:20px;
     font-weight: bold;
