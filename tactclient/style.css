@@ -312,7 +312,8 @@ span.profile {
   display: inline-block;
   -moz-background-size: cover;
   -ms-background-size: cover;
-  background-size: cover;  
+  background-size: cover;
+  background-repeat: no-repeat;
   position: relative;
 }
 

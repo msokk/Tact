@@ -38,7 +38,7 @@ namespace ContentTypeHttpModule
         {
             HttpApplication app = (HttpApplication)sender;
             HttpResponse response = app.Response;
-            
+            app.Response.AddHeader("Access-Control-Allow-Origin", "*");
             if (app.Context.Request.ContentType != JSON_CONTENT_TYPE) return;
             response.Filter = new JsonResponseFilter(response.Filter);
         }

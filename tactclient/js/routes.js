@@ -64,7 +64,7 @@ TactClient.editContact = function(id) {
   result +=   '<td>Maja Nr</td>';
   result +=   '<td class="maja_nr"><input type="text" value="' + c.MajaNr + '" /></td>';
   result +=   '<td>Pilt</td>';
-  result +=   '<td class="pilt"><input type="text" value="' + c.MajaNr + '" /></td>';
+  result +=   '<td class="pilt"><input type="text" value="' + c.Pilt + '" /></td>';
   result += '</tr>';
   result += '</table>';
   result += '<span class="controls">';
@@ -98,7 +98,7 @@ TactClient.saveContact = function(id) {
       });  
     }
     TactClient.notify(result.Sonum, error);
-
+    TactClient.bindContactHandlers();
   });
 };
 
@@ -192,9 +192,9 @@ TactClient.renderContact = function(c, id) {
 }
 
 TactClient.renderContacts = function(contacts) {
-  if(!contacts) {
+  /*if(!contacts) {
     location.href = '/index.html';
-  }
+  }*/
 
   var result = '';
   var lsContacts = {};

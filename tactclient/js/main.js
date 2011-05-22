@@ -9,12 +9,15 @@ $(function() {
     $('#notification').html('').slideUp();
     var state = History.getState();
     
+    //Normalize fragments on different browsers
     if(state.hash.indexOf('/' != -1)) {
       var frags = state.hash.split('/');
       state.hash = frags[frags.length-1];
     } else {
       state.hash = '/' + state.hash;
     }
+    
+    //Load 
     $.get(state.hash, function(data) {
         $('#main').html(data);
         if(TactClient.routes[state.hash]) {
