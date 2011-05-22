@@ -37,24 +37,24 @@ namespace TactSVC
                 ArrayList error = new ArrayList();
                 if (eesnimi == "")
                 {
-                    error.Add("eesnimi");
+                    error.Add("Eesnimi");
                 }
 
                 if (perenimi == "")
                 {
-                    error.Add("perenimi");
+                    error.Add("Perenimi");
                 }
 
                 if (kasutajanimi == "")
                 {
-                    error.Add("kasutajanimi");
+                    error.Add("Kasutajanimi");
                 }
 
                 if (parool == "")
                 {
-                    error.Add("parool");
+                    error.Add("Parool");
                 }
-                string viga = String.Join(",", error.ToArray());
+                string viga = String.Join(", ", error.ToArray());
                 if (viga == "")
                 {
                     var result = ab.Insert(new Kasutaja()
@@ -87,7 +87,7 @@ namespace TactSVC
                     return new Staatus()
                     {
                         Tyyp = "Viga",
-                        Sonum = "Palun täitke järgmised väljad: " + viga
+                        Sonum = "Palun täitke järgmised väljad: \n" + viga
                     };
                 }
             }
@@ -203,6 +203,8 @@ namespace TactSVC
             }
 
             Kasutaja k = (Kasutaja)Session["Kasutaja"];
+            k = ab.tagastaKasutaja(k.Kasutajanimi);
+
             if (parool != "") k.Parool = ComputeHash(parool);
             if (eesnimi != "") k.Eesnimi = eesnimi;
             if (perenimi != "") k.Perenimi = perenimi;
@@ -296,9 +298,9 @@ namespace TactSVC
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
-        public Staatus MuudaKontakt(int kontaktId, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
+        public Staatus MuudaKontakt(int kontakt_id, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
             String telefonMob, String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
-            String majaNr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
+            String maja_nr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
 
             if(Session["kasutaja"] == null) {
@@ -310,7 +312,7 @@ namespace TactSVC
             Kasutaja k = (Kasutaja)Session["kasutaja"];
 
             Kontakt kontakt = k.otsiKontaktid(new Kontakt() {
-                Id = kontaktId
+                Id = kontakt_id
             }, ab)[0];
 
             kontakt.KasutajaId = k.Id;
@@ -325,7 +327,7 @@ namespace TactSVC
             if(maakond != "") kontakt.Maakond = maakond;
             if(asula != "") kontakt.Asula = asula;
             if(tanav != "") kontakt.Tanav = tanav;
-            if(majaNr != "") kontakt.MajaNr = majaNr;
+            if(maja_nr != "") kontakt.MajaNr = maja_nr;
             if(wlm != "") kontakt.WindowsLiveMessenger = wlm;
             if(facebook != "") kontakt.Facebook = facebook;
             if(orkut != "") kontakt.Orkut = orkut;
@@ -355,7 +357,7 @@ namespace TactSVC
         [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
         public Kontakt[] KuvaKontakt(String kontakt_id, String eesnimi, String perenimi, String telefonKodu, String telefonToo,
             String telefonMob, String emailKodu, String emailToo, String riik, String maakond, String asula, String tanav,
-            String majaNr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
+            String maja_nr, String wlm, String facebook, String orkut, String skype, String twitter, String pilt)
         {
 
             int id = 0;
@@ -382,7 +384,7 @@ namespace TactSVC
             if(maakond != "") kontakt.Maakond = maakond;
             if(asula != "") kontakt.Asula = asula;
             if(tanav != "") kontakt.Tanav = tanav;
-            if(majaNr != "") kontakt.MajaNr = majaNr;
+            if(maja_nr != "") kontakt.MajaNr = maja_nr;
             if(wlm != "") kontakt.WindowsLiveMessenger = wlm;
             if(facebook != "") kontakt.Facebook = facebook;
             if(orkut != "") kontakt.Orkut = orkut;
@@ -404,7 +406,6 @@ namespace TactSVC
             }
 
             Kasutaja k = (Kasutaja)Session["kasutaja"];
-
             return k.otsiKontaktid(param, ab);
         }
 

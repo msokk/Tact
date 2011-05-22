@@ -38,8 +38,8 @@ namespace ContentTypeHttpModule
         {
             HttpApplication app = (HttpApplication)sender;
             HttpResponse response = app.Response;
+            
             if (app.Context.Request.ContentType != JSON_CONTENT_TYPE) return;
-
             response.Filter = new JsonResponseFilter(response.Filter);
         }
     }
@@ -49,10 +49,13 @@ namespace ContentTypeHttpModule
         private readonly Stream _responseStream;
         private long _position;
 
+        private long pos = 0;
+
         public JsonResponseFilter(Stream responseStream)
         {
             _responseStream = responseStream;
         }
+
 
         public override bool CanRead { get { return true; } }
 
@@ -67,18 +70,25 @@ namespace ContentTypeHttpModule
         public override void Write(byte[] buffer, int offset, int count)
         {
             string strBuffer = Encoding.UTF8.GetString(buffer, offset, count);
-            strBuffer = AppendJsonpCallback(strBuffer, HttpContext.Current.Request);
+            if (pos == 0)
+            {
+                strBuffer = PrependJsonpCallback(strBuffer, HttpContext.Current.Request);
+            }
+            pos += strBuffer.Length;
+
             byte[] data = Encoding.UTF8.GetBytes(strBuffer);
             _responseStream.Write(data, 0, data.Length);
         }
 
-        private string AppendJsonpCallback(string strBuffer, HttpRequest request)
+        private string PrependJsonpCallback(string strBuffer, HttpRequest request)
         {
-            return request.Params["callback"] + "(" + strBuffer + ");";
+            return request.Params["callback"] + "(" + strBuffer;
         }
 
         public override void Close()
         {
+            byte[] data = Encoding.UTF8.GetBytes(");");
+            _responseStream.Write(data, 0, data.Length);
             _responseStream.Close();
         }
 

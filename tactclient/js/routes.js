@@ -88,12 +88,18 @@ TactClient.saveContact = function(id) {
     if(result.Tyyp == 'Viga') {
       error = true;
     } else {
-      
+      TactClient.Api.viewContact({
+        kontakt_id: id
+      }, function(contacts) {
+        var cache = JSON.parse(window.localStorage.getItem('currentContacts'));
+        cache[id] = contacts[0];
+        window.localStorage.setItem('currentContacts', JSON.stringify(cache));
+        TactClient.renderContact(null, id);
+      });  
     }
     TactClient.notify(result.Sonum, error);
 
   });
-  console.log(params);
 };
 
 TactClient.deleteContact = function(id) {
@@ -202,7 +208,7 @@ TactClient.renderContacts = function(contacts) {
   window.localStorage.setItem('currentResult', result);
   window.localStorage.setItem('currentSearch', $('#contactSearch').val() || '');
   $('#contactList').html(result);
-
+  TactClient.bindContactHandlers();
 };
 
 TactClient.bindContactHandlers = function() {
@@ -274,9 +280,9 @@ TactClient.routes = {
     $('#hpLink').attr('onclick', 'TactClient.go(\'contacts.html\')');
     $('#footerLeft a').first().remove();
     $('#footerLeft span').remove();
-    $('#footerLeft').prepend('<span><a href="javascript:void();" onclick='
+    $('#footerLeft').prepend('<span><a href="javascript:void(0);" onclick='
       +'"TactClient.go(\'profile.html\')">Profiil</a> <img src="images/'
-      +'menuSplitter.png" /> <a href="javascript:void();" onclick='
+      +'menuSplitter.png" /> <a href="javascript:void(0);" onclick='
       +'"TactClient.logout()">Logi Välja</a> </span>');
     
     
@@ -289,8 +295,6 @@ TactClient.routes = {
         });        
       }, 100);
     });
-      
-    TactClient.bindContactHandlers();
   },
   
   'addcontact.html': function() {

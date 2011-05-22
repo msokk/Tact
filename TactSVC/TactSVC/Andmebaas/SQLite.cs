@@ -25,11 +25,14 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+
 
 namespace SQLite
 {
 	public class SQLiteException : System.Exception
 	{
+        
 		public SQLite3.Result Result { get; private set; }
 
 		protected SQLiteException (SQLite3.Result r,string message) : base(message)
@@ -1662,6 +1665,7 @@ namespace SQLite
 			Blob = 4,
 			Null = 5
 		}
+
 	}
 	
 }
