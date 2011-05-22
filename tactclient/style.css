@@ -94,6 +94,7 @@ div#main input {
 
 div#main input[type='search'] { /*BG HERE!*/
   padding-left: 25px;
+  background: url('images/magnifier.png') no-repeat 5px center #fff;
 }
 
 div#main button {
@@ -263,6 +264,12 @@ div#content {
 #contactList li {
     text-align: left;
     padding:5px;
+    color: #161616;
+    font-weight: normal;
+}
+
+#contactList li  table{
+  margin: 0;
 }
 
 div.contact-header {
