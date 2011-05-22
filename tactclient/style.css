@@ -92,9 +92,10 @@ div#main input {
   -webkit-background-clip: padding-box;
 }
 
-div#main input[type='search'] { /*BG HERE!*/
+div#main input[type='search'] {
   padding-left: 25px;
   background: url('images/magnifier.png') no-repeat 5px center #fff;
+  -webkit-appearance: none;
 }
 
 div#main button {

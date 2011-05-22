@@ -88,12 +88,14 @@ TactClient.saveContact = function(id) {
     if(result.Tyyp == 'Viga') {
       error = true;
     } else {
-      
+      TactClient.Api.searchContact($('#contactSearch').val() || '', function(contacts) {
+        TactClient.renderContacts(contacts);
+       TactClient.bindContactHandlers();
+      });
     }
     TactClient.notify(result.Sonum, error);
     TactClient.bindContactHandlers();
   });
-  console.log(params);
 };
 
 TactClient.deleteContact = function(id) {

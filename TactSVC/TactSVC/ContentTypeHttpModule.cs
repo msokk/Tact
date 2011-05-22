@@ -39,6 +39,8 @@ namespace ContentTypeHttpModule
             HttpApplication app = (HttpApplication)sender;
             HttpResponse response = app.Response;
             app.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            app.Response.AddHeader("p3p", "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
+
             if (app.Context.Request.ContentType != JSON_CONTENT_TYPE) return;
             response.Filter = new JsonResponseFilter(response.Filter);
         }
