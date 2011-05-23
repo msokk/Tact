@@ -27,12 +27,7 @@ TactClient.logout = function() {
  * @public
  */
 TactClient.notify = function(message, error) {
-  $('#notification').html(message).slideDown();
-  if(error) {
-    $('#notification').css('color', 'red');
-  } else {
-    $('#notification').css('color', 'green');
-  }
+  $('#notification').html('<span>' + message + '</span>').slideDown();
 };
 
 /**

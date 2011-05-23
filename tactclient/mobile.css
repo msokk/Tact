@@ -1,48 +1,11 @@
 /*MOBILE VERSION*/
-@media (max-width: 320px) {
+@media (max-width: 400px) {
 
   div#wrapper {
     margin: 0;
-    width: 300px;
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    -ms-transform: scale(0.8); 
+    width: 400px;
+    -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    -ms-transform: scale(0.5); 
   }
-  div#footerRight {
-    display: none;
-  }
-  div#logo {
-    width: 250px;
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    -ms-transform: scale(0.8);
-  }
-  
-  div#logo .clear {
-    display: none;
-  }
-  
-  div#loginBox {
-    width: 100%;
-  }
-  
-  div#main {
-    text-align: initial;
-    min-height: 0px;
-  }
-  
-  div#main input {
-    display: block;
-    margin: 5px;
-  }
-  
-  div#main button {
-    float: none;
-    margin: 10px;
-  }
-  
-  div#status {
-    height: 20px;
-  }
-  
 }

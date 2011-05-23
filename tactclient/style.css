@@ -23,20 +23,24 @@ div#status {
     width: 300px;
     left: 50%;
     margin-left: -150px;
-    z-index: 10;
-    padding-top: 8px;
-    height: 18px;
+    padding: 5px;
+    height: 25px;
     margin-top: -2px;
     text-align: center;
     display: none;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
     border-radius: 2px;
-    border: 1px solid #9ed675;
-    background: #e0facd;
-    color: #5f9239;
+    border: 1px solid lightgray;
+    background-color: white;
+    color: #898989;
     font-weight: bold;
     top: -2px;
+}
+
+#notification span {
+  vertical-align: middle;
 }
 
 div#wrapper {
@@ -347,4 +351,9 @@ span.profile-fixed {
   z-index: 1000;
   position: absolute;
   margin: 0;
+}
+
+#registerBtn {
+  display: inline-block !important;
+  float: none !important;
 }
