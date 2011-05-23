@@ -106,7 +106,7 @@ div#main input {
   border-radius: 2px;
   color: #898989;
   -moz-box-shadow: 0 0 2px #cecece;
-  -webkit-box-shadow: 0 0 2px #cecece;
+  -ms-box-shadow: 0 0 2px #cecece;
   box-shadow: 0 0 2px #cecece;
   -webkit-background-clip: padding-box;
 }
@@ -129,6 +129,7 @@ div#main button {
     border-radius: 2px;
     color: #898989;
     -moz-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #f8f8f8;
+    -ms-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #f8f8f8;
     box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #f8f8f8;
     -webkit-background-clip: padding-box;
     background-image: -moz-linear-gradient(#fff, #e6e6e6);
@@ -148,6 +149,7 @@ div#main button.facebook {
     background-image: -ms-linear-gradient(#5986a9, #25567c);
     background-image: -webkit-linear-gradient(#5986a9, #25567c);
     -moz-box-shadow: 0 0 2px #cecece;
+    -ms-box-shadow: 0 0 2px #cecece;
     box-shadow: 0 0 2px #cecece;
 }
 
@@ -156,6 +158,7 @@ div#main button.facebook:hover {
     background-image: -ms-linear-gradient(#25567c, #5986a9);
     background-image: -webkit-linear-gradient(#25567c, #5986a9);
     -moz-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #f8f8f8;
+    -ms-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #f8f8f8;
     box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #8dacc4;
 }
 
@@ -181,6 +184,7 @@ div#main button.facebook .ficon {
 div#main button:hover {
   cursor: pointer;
   -moz-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
+  -ms-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
   box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
   background-image: -moz-linear-gradient(#f8f8f8, #d9d9d9);
   background-image: -ms-linear-gradient(#f8f8f8, #d9d9d9);
@@ -190,6 +194,7 @@ div#main button:hover {
 div#main button:active {
   cursor: pointer;
   -moz-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
+  -ms-box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
   box-shadow: 0 0 2px #cecece, inset 0px -1px 0 0 #e6e6e6;
   background-image: -moz-linear-gradient(#d9d9d9, #f8f8f8);
   background-image: -ms-linear-gradient(#d9d9d9, #f8f8f8);
